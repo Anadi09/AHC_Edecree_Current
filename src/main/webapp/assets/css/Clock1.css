@@ -1,0 +1,35 @@
+/* Virendra Singh */
+
+.clockdate-wrapper {
+    background-color: #fff;
+    padding:10px 10px 2px 10px; 
+    max-width:350px;
+    width:100%;
+    text-align:center;
+    border-radius:5px;
+    /* margin:0 auto;*/
+    margin-top:0.5%;
+}
+#clock{
+
+	display: inline-block;
+    background-color:#fff;
+    font-family: sans-serif;
+    font-size:18px;
+    text-shadow:0px 0px 1px #2d353c;
+    color:#2d353c;
+}
+#clock span {
+    color:#888;
+    text-shadow:0px 0px 1px #fff;
+    font-size:12px;
+    position:relative;
+    top:-22px;
+    left:-10px;
+}
+#date {
+    letter-spacing:3px;
+    font-size:16px;
+    font-family:arial,sans-serif;
+    color:#2d353c;
+}

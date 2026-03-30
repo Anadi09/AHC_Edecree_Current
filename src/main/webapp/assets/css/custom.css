@@ -1,0 +1,45 @@
+.content {
+	
+	padding-top:15px;
+	 padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 180px;
+}
+
+.container-fluid {
+    padding-right: 5px;
+    padding-left: 5px;
+   
+}
+
+
+#metaDataPanel {
+	
+	padding-right: 5px;
+    padding-left: 5px;
+}
+
+
+#myDiv {
+	padding-right: 5px;
+    padding-left: 2px;
+	
+}
+
+.panel-body {
+	padding-top:15px;
+	 padding-right: 0px;
+    padding-left: 0px;
+    padding-bottom:15px
+	
+}
+
+.sidebar {
+	
+width :180px; 
+}
+
+#sidebarContent
+{
+	width :190px; 
+}

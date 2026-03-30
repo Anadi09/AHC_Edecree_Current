@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html ng-app="EDMSApp">
+<head>
+<link rel="icon"
+	href="../../images/favicon.ico" />
+<link rel='stylesheet'
+	href="../../css/bootstrap/angular-datepicker.css">
+
+<link rel='stylesheet'
+	href="../../css/editor.css">
+<script type="text/javascript"
+	src="../../assets/js/clock.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Allahabad High Court</title>
+
+<link
+	href="../../assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css"
+	rel="stylesheet" />
+<link
+	href="../../assets/plugins/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link
+	href="../../assets/plugins/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" />
+<link
+	href="../../assets/css/animate.min.css"
+	rel="stylesheet" />
+<link href="../../assets/css/style.min.css"
+	rel="stylesheet" />
+<link
+	href="../../assets/css/style-responsive.min.css"
+	rel="stylesheet" />
+<link
+	href="../../assets/css/theme/default.css"
+	rel="stylesheet" id="theme" />
+<link
+	href="../../assets/plugins/DataTables/css/data-table.css"
+	rel="stylesheet" />
+<link href="../../assets/css/Clock.css"
+	rel="stylesheet" />
+<link
+	href="../../assets/plugins/gritter/css/jquery.gritter.css"
+	rel="stylesheet" />
+<script
+	src="../../assets/plugins/jquery/jquery-1.9.1.min.js"></script>
+
+<script
+	src="../../assets/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+<script
+	src="../../assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js"></script>
+<script type="text/javascript"
+	src="../../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<script
+	src="../../assets/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script
+	src="../../js/angularJs/angular.min.js"></script>
+<script>
+$(document).ready(function(){
+	  $('li.active').parent().parent().addClass('active');
+});
+</script>
+<script type="text/javascript"
+	src="../../js/scripts/controllers/EcourtHomeControllerLocal.js"></script>
+<script type="text/javascript"
+	src="../../js/bootstrap/angular-datepicker.js"></script>
+
+<script type="text/javascript"
+	src="../../js/bootstrap/ui-bootstrap-tpls.0.11.2.js"></script>
+
+<script src="../../assets/js/apps.min.js"></script>
+<script>
+	$(document).ready(function() {
+		App.init();
+
+	});
+</script>
+</head>
+<body onload="startTime()">
+	<!-- <% 
+User user = null;
+if(session.getAttribute("USER")!=null)
+	 user = (User)session.getAttribute("USER");
+
+String role=user.getUserroles().get(0).getLk().getLk_longname();
+System.out.println("Role name="+role);
+String url=request.getRequestURL()+"";
+String home="";
+String casefile="";
+String caveat="";
+String applications="";
+String upload="";
+String scrutinycase="";
+String scrutinycaveat="";
+String scrutinyapplication="";
+String uri=(String) request.getAttribute("javax.servlet.forward.request_uri");
+
+String basePath=(String) request.getAttribute("javax.servlet.forward.context_path");
+
+
+
+%> -->
+	<!-- <% 
+	List<ObjectMaster> parent_list  = (List<ObjectMaster>)session.getAttribute("ob_list");
+	List<ObjectMaster> child_list  = (List<ObjectMaster>)session.getAttribute("ob_list");
+%> -->
+	<div id="page-container"
+		class="fade page-sidebar-fixed page-header-fixed"
+		style="padding-top: 35px" ng-controller="ECourtHomeCtrlLocal">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top"
+			style="height: 35px">
+			<!-- begin container-fluid -->
+			<!-- 	<div class="container-fluid" > -->
+			<!-- begin mobile sidebar expand / collapse button -->
+			<div class="navbar-header">
+				<a href="" class="navbar-brand" style="height: 35px"><span
+					class="navbar-logo"></span>Allahabad High Court e-Filing</a>
+			</div>
+			<!-- end mobile sidebar expand / collapse button -->
+
+			<!-- begin header navigation right -->
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<div id="clockdate" style="padding-top: 10px; display: inline;">
+						<div class="clockdate-wrapper" style="display: inline;">
+							<div id="date" style="display: inline;"></div>
+							<div id="clock" style="padding-top: 15px"></div>
+
+						</div>
+					</div>
+				</li>
+
+				<li class="dropdown navbar-user"><a href="javascript:;"
+					class="dropdown-toggle" data-toggle="dropdown"> <img
+						src="../../assets/img/1.jpg"
+						alt="" /> <!-- 	<%!
+							public static String capitalizeWord(String str)
+							{  
+							    String words[]=str.split("\\s");  
+							    String capitalizeWord="";  
+							    for(String w:words)
+							    {  
+							        String first=w.substring(0,1);  
+							        String afterfirst=w.substring(1);  
+							        capitalizeWord+=first.toUpperCase()+afterfirst.toLowerCase()+" ";  
+							    }
+							    return capitalizeWord.trim();  
+							}  
+							%> --> <!-- 	<% if(role.equals("Judge"))
+								{ %>
+								<span class="hidden-xs"><b><%=""%></b><b><%="Hon'ble Justice\n"+capitalizeWord(user.getUm_fullname()) %>(<%=role%>)</b></span> <b class="caret"></b>
+								<% }
+								else  if(role.equals("Chief Justice")) 
+								{%>
+									<span class="hidden-xs"><b><%=""%></b><b><%="Hon'ble Chief Justice\n"+capitalizeWord(user.getUm_fullname()) %>(<%=role%>)</b></span> <b class="caret"></b>
+								<%}
+								
+								else{ %>
+								<img src="${pageContext.request.contextPath}/assets/img/1.jpg" alt="" />
+								<%-- <img src="${pageContext.request.contextPath}/assets/img/user-13.jpg" alt="" /> --%> 
+								<span class="hidden-xs"><%=user.getUm_fullname() %> (<%=role%>)</span> <b class="caret"></b>
+								<%} %> --> <!-- <span class="hidden-xs"><%=user.getUm_fullname() %> (<%=role%>)</span> <b class="caret"></b> -->
+								<span class="hidden-xs"><b></b><b>Hon'ble Justice ({{userData.um_fullname}})</b></span> <b class="caret"></b>
+				</a>
+				
+					</li>
+			</ul>
+			<!-- end header navigation right -->
+			<!-- </div> -->
+			<!-- end container-fluid -->
+
+		</div>
+		<!-- end #header -->
+
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%" id="demo2">
+				<ul class="nav">
+					<li class="has-sub"><a><b class="caret pull-right"></b><i
+						class="fa fa-file-o"></i>
+					Home </a>
+
+					<ul class="sub-menu">
+					<li><a href="/ecourt9/webapp/WEB-INF/ecourt/home1.html">Dashboard</a></li>
+					
+				
+					</ul>
+				</li>
+					
+					<li class="has-sub"><a><b class="caret pull-right"></b><i
+							class="fa fa-file-o"></i>
+						List of Cases </a>
+
+						<ul class="sub-menu">
+						<li><a href="../../WEB-INF/causelist/typewise.html?id=5">Fresh Cases</a></li>
+						<li><a href="../../WEB-INF/causelist/typewise.html?id=7">Additional</a></li>
+						<li><a href="../../WEB-INF/causelist/typewise.html?id=6">Supplementry</a></li>
+						<li><a href="../../WEB-INF/causelist/typewise.html?id=4">Backlog</a></li>
+						<li><a href="../../WEB-INF/causelist/typewise.html?id=3">Cause List</a></li>
+						<li><a href="../../WEB-INF/causelist/typewise.html?id=1">Application</a></li>
+						<li><a href="../../WEB-INF/causelist/typewise.html?id=2">Correction Application</a></li>
+					
+						</ul>
+					</li>
+				
+
+					<li><a href="javascript:;" class="sidebar-minify-btn"
+						data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+			</div>
+			</ul>
+			<!-- end sidebar nav -->
+			<!-- <button id="sidebarToggle" class="toolbarButton" title="Toggle Sidebar" tabindex="11" data-l10n-id="toggle_sidebar">
+                                <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
+                            </button> -->
+			<!-- <div id="sidebarContent" >
+                <div id="thumbnailView" style="display:none">
+                </div>
+                <div id="outlineView" class="hidden">
+                </div>
+                <div id="attachmentsView" class="hidden">
+                </div>
+            </div> -->
+
+
+			<!-- end sidebar scrollbar -->
+
+
+
+
+		</div>
+		<div id="sidebarContent" style="margin-top: 19px; position: fixed;">
+
+
+			<div id="outlineView" class="hidden" width="105px"></div>
+		</div>
+
+
+
+		<div id="content" class="content" >
+			<div class="container-fluid">
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats bg-green">
+						<div class="stats-icon">
+							<i class="fa fa-desktop"></i>
+						</div>
+						<div class="stats-info">
+							<h4>Fresh Cases</h4>
+							<h4>{{freshcount}}</h4>
+						</div>
+						<div class="stats-link">
+							<a targert="_new" href="../../WEB-INF/causelist/typewise.html?id=5">View Detail <i
+								class="fa fa-arrow-circle-o-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats bg-green">
+						<div class="stats-icon">
+							<i class="fa fa-desktop"></i>
+						</div>
+						<div class="stats-info">
+							<h4>Cause List</h4>
+							<h4>{{dailycount}}</h4>
+						</div>
+						<div class="stats-link">
+							<a targert="_new" href="../../WEB-INF/causelist/typewise.html?id=3">View Detail <i
+								class="fa fa-arrow-circle-o-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats bg-green">
+						<div class="stats-icon">
+							<i class="fa fa-desktop"></i>
+						</div>
+						<div class="stats-info">
+							<h4>Application</h4>
+							<h4>{{applicationcount}}</h4>
+						</div>
+						<div class="stats-link">
+							<a targert="_new" href="../../WEB-INF/causelist/typewise.html?id=1">View Detail <i
+								class="fa fa-arrow-circle-o-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats bg-green">
+						<div class="stats-icon">
+							<i class="fa fa-desktop"></i>
+						</div>
+						<div class="stats-info">
+							<h4>Correction Application</h4>
+							<h4>{{correctioncount}}</h4>
+						</div>
+						<div class="stats-link">
+							<a targert="_new" href="../../WEB-INF/causelist/typewise.html?id=2">View Detail <i
+								class="fa fa-arrow-circle-o-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats bg-green">
+						<div class="stats-icon">
+							<i class="fa fa-desktop"></i>
+						</div>
+						<div class="stats-info">
+							<h4>Backlog</h4>
+							<h4>{{backlogcount}}</h4>
+						</div>
+						<div class="stats-link">
+							<a targert="_new" href="../../WEB-INF/causelist/typewise.html?id=4">View Detail <i
+								class="fa fa-arrow-circle-o-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats bg-green">
+						<div class="stats-icon">
+							<i class="fa fa-desktop"></i>
+						</div>
+						<div class="stats-info">
+							<h4>Supplementry</h4>
+							<h4>{{supplementarycount}}</h4>
+						</div>
+						<div class="stats-link">
+							<a targert="_new" href="../../WEB-INF/causelist/typewise.html?id=6">View Detail <i
+								class="fa fa-arrow-circle-o-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="widget widget-stats bg-green">
+						<div class="stats-icon">
+							<i class="fa fa-desktop"></i>
+						</div>
+						<div class="stats-info">
+							<h4>Additional</h4>
+							<h4>{{additionalcount}}</h4>
+						</div>
+						<div class="stats-link">
+							<a targert="_new" href="../../WEB-INF/causelist/typewise.html?id=7">View Detail <i
+								class="fa fa-arrow-circle-o-right"></i></a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Sushant -->
+
+				<!-- 		<div class="col-md-3 col-sm-6">
+			<div class="widget widget-stats bg-green">
+				<div class="stats-icon">
+					<i class="fa fa-desktop"></i>
+				</div>
+				<div class="stats-info">
+					<h4>Click To view Previous Date Causlist</h4>
+					<h4></h4>
+				</div>
+				<div class="stats-link">
+					<a targert="_new" ng-click="show()">View Detail <i
+						class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div> -->
+
+			</div>
+			<div class="container-fluid" ng-show="divShow">
+				<label class="control-label col-md-4">Date of Decision: <span
+					class="text-danger"> * </span></label>
+				<div class="col-md-4">
+					<input type="text" class="form-control"
+						datepicker-popup="{{format1}}" name="fromDate1"
+						ng-change="getCauseList(cause_list_date)"
+						ng-model="cause_list_date" is-open="fromDate1" max-date="maxDate"
+						datepicker-options="dateOptions" ng-disabled="true"
+						date-disabled="disabled(date, mode)" close-text="Close"
+						show-button-bar="false" /> <span class="input-group-addon"
+						ng-click="open1($event,'fromDate1')"><i
+						class="glyphicon glyphicon-calendar"></i></span>
+				</div>
+
+
+
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>

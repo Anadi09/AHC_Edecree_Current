@@ -1,0 +1,29 @@
+
+#treedata {
+    background: none repeat scroll 0 0 #f7f7f7;
+    border: 1px solid #c4c0bf;
+    height: 180px;
+    min-height: 100px;
+    overflow: auto;
+}
+#advanced_search .tab-content {
+    background-color: #f5f5f5 ;
+    border-bottom: medium none transparent;
+    border-color: transparent #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    min-height: 400px;
+    padding: 10px;
+}
+
+#advanced_search .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #ddd #ddd transparent !important;
+    border-style: solid !important;
+    border-width: 1px !important;
+    color: #555 !important;
+    cursor: default !important;
+}

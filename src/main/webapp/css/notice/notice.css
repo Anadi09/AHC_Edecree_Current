@@ -1,0 +1,27 @@
+.heading {
+  text-align: center; 
+  padding-bottom: 0px;
+  margin-bottom: 0px; 
+}
+
+#inputState{
+    display: inline;
+}
+
+.inlineEle {
+	display:inline;
+}
+
+.heading1 {
+    text-align: center; 
+    padding-bottom: 0px;
+    margin-bottom: 20px; 
+  }
+
+  .itemAlign {
+      align-items: center;
+  }
+  
+  #ver{
+     text-align: center;
+}
