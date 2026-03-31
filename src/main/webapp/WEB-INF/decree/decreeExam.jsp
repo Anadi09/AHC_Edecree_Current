@@ -9,6 +9,9 @@ if(session.getAttribute("USER")!=null)
 String role=user.getUserroles().get(0).getLk().getLk_longname();
 
 %>
+
+
+
 	<div id="content" class="content">
 			<div class="container-fluid" ng-controller="NoticeController" >
 			
@@ -48,7 +51,7 @@ String role=user.getUserroles().get(0).getLk().getLk_longname();
                                              <td>{{row.caseFileDetail.fd_case_year}}</td>     
                                              <td style="color: rgb(0, 120, 255);">{{row.df_remark}}</td>                                     
                                              <td>{{row.df_cr_date | date:"dd/MM/yyyy HH:mm:ss"}}</td>
-                                             <td><button class="btn btn-success"  ng-click="genrateDecree(row.df_fd_mid)">Preview</button></td>
+                                             <td><button class="btn btn-sm btn-primary "   style="border-radius: 20px; padding: 5px 12px; font-size: 12px;"   ng-click="genrateDecree(row.df_fd_mid)">Preview</button></td>
                                              <!-- <td><button class="btn btn-success" ng-click="digitalSign(row.df_fd_mid)">Digital Sign</button></td> -->
                                           </tr>
                                     </tbody>

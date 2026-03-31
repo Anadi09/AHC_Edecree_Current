@@ -29,7 +29,7 @@ public class DecreeSmsLog {
     @Column(name = "dsl_case_year", nullable = true)
     private Integer dslCaseYear;
 
-    @Column(name = "dsl_aor", length = 100, nullable = false)
+    @Column(name = "dsl_aor", length = 100, nullable = true)
     private String dslAor;
 
     @Column(name = "dsl_mobile", length = 15, nullable = false)

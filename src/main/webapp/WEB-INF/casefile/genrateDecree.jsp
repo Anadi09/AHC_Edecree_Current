@@ -9,6 +9,13 @@
 	rel="stylesheet">
 
 <style>
+
+.btn-sm {
+	border-radius: 20px;
+	padding: 5px 12px;
+	font-size: 12px;
+}
+
 .inline-block {
 	display: inline-block
 }
@@ -630,7 +637,7 @@
 </div>
 
 								<div align="center">
-									<!-- <button class="btn btn-success" ng-click="digitalSign(decreeForm.df_fd_mid)">Digital Sign</button></td> -->
+									<!-- <button class="btn btn-primary" ng-click="digitalSign(decreeForm.df_fd_mid)">Digital Sign</button></td> -->
 
 
 
@@ -639,13 +646,13 @@
 										ng-hide="decreeForm.df_locked==true  
 								 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004  || decreeForm.df_stage_lid==4008
 								|| decreeForm.df_stage_lid==4006 || (<%=user.getUm_id()%>!=decreeForm.df_assign_to && decreeForm.df_assign_to!=null)"
-										class="btn btn-success btn-sm" ng-click="saveForm()">save</button>
+										class="btn btn-primary btn-sm" ng-click="saveForm()">save</button>
 									<br /> <br />
 
 									<%-- <br/><button ng-hide="decreeForm.df_locked==true   
 								|| decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004  || decreeForm.df_stage_lid==4008
 								|| decreeForm.df_stage_lid==4006 || (<%= user.getUm_id() %>!=decreeForm.df_assign_to && decreeForm.df_assign_to!=null)"  
-								class="btn btn-success btn-sm" ng-click="updateForm(decreeForm)">Update</button>
+								class="btn btn-primary btn-sm" ng-click="updateForm(decreeForm)">Update</button>
 								<br/> <br/> --%>
 
 									<br />
@@ -656,7 +663,7 @@
 									<button
 										ng-show="decreeForm.df_locked==false   
 								&& decreeForm.df_stage_lid==4008 "
-										class="btn btn-success btn-sm" ng-click="saveForm()">Approve</button>
+										class="btn btn-primary btn-sm" ng-click="saveForm()">Approve</button>
 									<%
 									}
 									%>
@@ -664,7 +671,7 @@
 										ng-repeat="data in decreeForm.decreeFileUploaded"
 										ng-hide="decreeForm.df_locked==true"> <a href=""
 										ng-click="preview(data.dfu_id)">{{data.dfu_file_name}}</a>
-										<button class="btn btn-success btn-sm"
+										<button class="btn btn-primary btn-sm"
 											ng-click="deleteFile(data.dfu_id)">Delete</button>
 										<br />
 
@@ -679,7 +686,7 @@
 										<label for="file">File<span class="star">*</span></label> <input
 											type="file" style="color: red;" ngf-select ng-model="picFile"
 											name="file">
-										<button class="btn btn-success btn-sm" ng-click="uploadFile()">Upload</button>
+										<button class="btn btn-primary btn-sm" ng-click="uploadFile()">Upload</button>
 									</div>
 									<br />
 
@@ -691,10 +698,10 @@
                                                 </select> <br/>
 								
 								<button ng-show="decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
-								|| decreeForm.df_stage_lid==4006" ng-show="decreeForm.df_id" class="btn btn-success btn-sm" 
+								|| decreeForm.df_stage_lid==4006" ng-show="decreeForm.df_id" class="btn btn-primary btn-sm" 
 								ng-click="nextStage(4001)">Assign To</button><br/>
 								 <button ng-show="decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
-								|| decreeForm.df_stage_lid==4006" class="btn btn-success" data-toggle="modal" data-target="#returntodecree" >Return Remark</button> --%>
+								|| decreeForm.df_stage_lid==4006" class="btn btn-primary" data-toggle="modal" data-target="#returntodecree" >Return Remark</button> --%>
 
 
 
@@ -712,14 +719,14 @@
 									<button
 										ng-show="(decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 || decreeForm.df_stage_lid==4006) 
 										&& decreeForm.df_assign_to == <%=user.getUm_id()%>"
-										class="btn btn-success btn-sm" ng-click="nextStage(4001)">
+										class="btn btn-primary btn-sm" ng-click="nextStage(4001)">
 										Assign To</button>
 									</br>
 
 									<button
 										ng-show="(decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 || decreeForm.df_stage_lid==4006) 
 										&& decreeForm.df_assign_to == <%=user.getUm_id()%>"
-										class="btn btn-success" data-toggle="modal"
+										class="btn btn-primary" data-toggle="modal"
 										data-target="#returntodecree">Return Remark</button>
 
 
@@ -734,7 +741,7 @@
 
 									<button
 										ng-show="decreeForm.df_stage_lid==4008 && decreeForm.df_locked==false"
-										class="btn btn-success" data-toggle="modal"
+										class="btn btn-primary" data-toggle="modal"
 										data-target="#returntodecree">Return Remark</button>
 
 									<%
@@ -778,11 +785,11 @@
 																</div>
 															</div>
 
-															<!-- <button id="btnPrint" class="btn btn-success">Print</button> -->
+															<!-- <button id="btnPrint" class="btn btn-primary">Print</button> -->
 															<input type="submit" value="Submit" id="Submit"
 																ng-click="returnToDecreeWriter(decreeForm)"
 																ng-disabled="buttonDisabled"
-																data-loading-text="Loading..." class="btn btn-success"
+																data-loading-text="Loading..." class="btn btn-primary"
 																data-toggle="modal" />
 														</div>
 													</div>
@@ -803,13 +810,13 @@
 									<button
 										ng-show="decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
 								|| decreeForm.df_stage_lid==4006"
-										ng-show="decreeForm.df_id" class="btn btn-success btn-sm"
+										ng-show="decreeForm.df_id" class="btn btn-primary btn-sm"
 										ng-click="nextStage(4001)">Assign To</button>
 									<br />
 									<button
 										ng-show="decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
 								|| decreeForm.df_stage_lid==4006"
-										class="btn btn-success" data-toggle="modal"
+										class="btn btn-primary" data-toggle="modal"
 										data-target="#returntodecree">Return Remark</button>
 								</div>
 
@@ -818,32 +825,32 @@
 									<label class="col-md-4 control-label" for="file">File<span
 										class="star">*</span></label> <input type="file" ngf-select
 										ng-model="picFile" name="file">
-									<button class="btn btn-success btn-sm" ng-click="uploadFile()">Upload</button>
-									<button class="btn btn-success btn-sm"
+									<button class="btn btn-primary btn-sm" ng-click="uploadFile()">Upload</button>
+									<button class="btn btn-primary btn-sm"
 										ng-click="downloadDecree()">download</button>
 								</div>
 
-								<!-- <td><button class="btn btn-success" ng-click="digitalSign(decreeForm.df_fd_mid)">Digital Sign</button></td> -->
+								<!-- <td><button class="btn btn-primary" ng-click="digitalSign(decreeForm.df_fd_mid)">Digital Sign</button></td> -->
 								<%
 								}
 								%>
 
-								<!-- <button ng-show="decreeForm.df_locked==true" class="btn btn-success btn-sm" ng-click="downloadDecree()">download</button> -->
+								<!-- <button ng-show="decreeForm.df_locked==true" class="btn btn-primary btn-sm" ng-click="downloadDecree()">download</button> -->
 								<button
 									ng-show="decreeForm.df_locked==true && decreeForm.df_stage_lid==4008"
-									class="btn btn-success btn-sm" ng-click="downloadDecree()">download</button>
+									class="btn btn-primary btn-sm" ng-click="downloadDecree()">download</button>
 
 								<span ng-show="decreeForm.df_locked==true"><b> Decree
 										already generated. </b></span>
-								<!-- <button ng-show="decreeForm.df_stage_lid!==null" class="btn btn-success btn-sm" ng-click="downloadDecree()">Preview</button> -->
+								<!-- <button ng-show="decreeForm.df_stage_lid!==null" class="btn btn-primary btn-sm" ng-click="downloadDecree()">Preview</button> -->
 
 								<button
 									ng-show="decreeForm.df_stage_lid !==4008 && decreeForm.df_stage_lid !=4000"
-									class="btn btn-success btn-sm" ng-click="downloadDecree()">Preview</button>
+									class="btn btn-primary btn-sm" ng-click="downloadDecree()">Preview</button>
 									
-									<button
+				<!-- 					<button
 									ng-show="decreeForm.df_stage_lid !==4008 && decreeForm.df_stage_lid !=4000"
-									class="btn btn-success btn-sm" ng-click="downloadDecreeJs()">Preview js</button>
+									class="btn btn-primary btn-sm" ng-click="downloadDecreeJs()">Preview js</button> -->
 
 
 							</div>

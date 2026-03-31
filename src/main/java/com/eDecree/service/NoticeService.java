@@ -351,6 +351,7 @@ public class NoticeService {
 	               "WHERE df.df_id = ds.ds_df_mid " +
 	               "AND df.df_fd_mid = :fdMid " +
 	               "AND ds.ds_stage_lid > 4001 " +
+	               "AND ds.ds_stage_lid > 4007 " +
 	               "ORDER BY ds.ds_cr_date DESC";
 		  
 		  result = em.createQuery(query) .setParameter("fdMid", fdMid) 

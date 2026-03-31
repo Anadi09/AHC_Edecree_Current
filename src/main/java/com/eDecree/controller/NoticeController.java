@@ -610,6 +610,10 @@ public class NoticeController {
 		 Document doc=new Document();
 		 
 		 DecreeForm officeRpt=noticeService.getDecreeForm(caseFileId);
+		 if (officeRpt == null) {
+			    response.sendError(HttpServletResponse.SC_NOT_FOUND, "Decree not found");
+			    return;
+			}
 		 Lookup lookup = lookupService.getLookUpObject("REPOSITORYPATH");
 		 
 		 List<DecreeStage> stage = noticeService.getDecreeStage(caseFileId);
@@ -788,7 +792,13 @@ public class NoticeController {
 			 
 			 SimpleDateFormat dateFormat1 = new SimpleDateFormat("dd-MM-yyyy");
 				/* String dateString1 = dateFormat.format(officeRpt.getDf_exam_date()); */
-			 String dateString1 = dateFormat.format(stage.get(0).getDs_cr_date());
+			 String dateString1 = "";
+
+			 if (stage != null && stage.size() > 0 && stage.get(0).getDs_cr_date() != null) {
+			     dateString1 = dateFormat.format(stage.get(0).getDs_cr_date());
+			 } else {
+			     dateString1 = "N/A"; // or handle properly
+			 }
 			 
 			 Paragraph p5 = new Paragraph("Date :" +dateString1,f); 
 			/* p5.add(new Chunk(glue));
