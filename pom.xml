@@ -58,13 +58,32 @@
     <version>1.17.2</version>
 </dependency>
   
-  
+   <dependency>
+        <groupId>org.docx4j</groupId>
+        <artifactId>docx4j</artifactId>
+        <version>6.1.2</version>
+    </dependency>
+<!-- Source: https://mvnrepository.com/artifact/org.docx4j/docx4j-openxml-objects -->
+<dependency>
+    <groupId>org.docx4j</groupId>
+    <artifactId>docx4j-openxml-objects</artifactId>
+    <version>8.0.0</version>
+    <scope>compile</scope>
+</dependency>  
   <dependency>
 	<groupId>org.codehaus.jackson</groupId>
 	<artifactId>jackson-mapper-asl</artifactId>
 	<version>1.9.10</version>
 </dependency>
 
+  <!-- JAXB (MANDATORY for Java 7/8) -->
+<!-- Source: https://mvnrepository.com/artifact/org.docx4j/docx4j-JAXB-ReferenceImpl -->
+<dependency>
+    <groupId>org.docx4j</groupId>
+    <artifactId>docx4j-JAXB-ReferenceImpl</artifactId>
+    <version>8.0.0</version>
+    <scope>compile</scope>
+</dependency>
   <dependency>
     <groupId>org.springframework</groupId>
     <artifactId>spring-orm</artifactId>

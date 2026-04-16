@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.math.BigInteger;
 import java.net.URL;
 import java.nio.file.Files;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -29,7 +29,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.poi.ss.formula.functions.Replace;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.wml.SectPr;
+import org.docx4j.wml.ObjectFactory;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -58,16 +64,14 @@ import com.ccms.CcmsPartyDetails;
 import com.ccms.CcmsPrimary;
 import com.eDecree.model.ActionResponse;
 import com.eDecree.model.ApplicationNotice;
-import com.eDecree.model.ApplicationWithPetition;
 import com.eDecree.model.CaseFileDetail;
 import com.eDecree.model.CaseNotice;
-import com.eDecree.model.CourtMaster;
+import com.eDecree.model.DecreeExamDTO;
 import com.eDecree.model.DecreeFileUploaded;
 import com.eDecree.model.DecreeForm;
 import com.eDecree.model.DecreeStage;
 import com.eDecree.model.IndexField;
 import com.eDecree.model.Lookup;
-import com.eDecree.model.OrderReport;
 import com.eDecree.model.SubDocument;
 import com.eDecree.model.User;
 import com.eDecree.model.UserRole;
@@ -79,7 +83,6 @@ import com.eDecree.service.SubDocumentService;
 import com.eDecree.service.UserService;
 import com.eDecree.utility.GlobalFunction;
 import com.eDecree.utility.PDFGenerate;
-import com.eDecree.utility.SendEmailWithAttachment;
 import com.eDecree.utility.SendMail;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -100,10 +103,14 @@ import com.itextpdf.text.pdf.PdfGState;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.codec.Base64.OutputStream;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 import com.itextpdf.text.pdf.draw.VerticalPositionMark;
 import com.lowagie.text.DocumentException;
+
+
+
+
+
 
 @Controller
 @RequestMapping("/notice")
@@ -539,6 +546,120 @@ public class NoticeController {
 		
 	
 	}
+	
+	
+	
+	@RequestMapping(value = "/downloadDecreeDoc/{id}", method = RequestMethod.GET)
+	public void createDocA4(@PathVariable("id") Long caseFileId,
+	                      HttpServletResponse response) throws IOException {
+
+	    try {
+	        DecreeForm officeRpt = noticeService.getDecreeForm(caseFileId);
+
+	        String html = "<html>" +
+	                "<head><meta charset='UTF-8'></head>" +
+	                "<body>" +
+	                officeRpt.getDf_first_div() + "<br><br>" +
+	                officeRpt.getDf_2nd_div() + "<br><br>" +
+	                officeRpt.getDf_editor() + "<br><br>" +
+	                officeRpt.getDf_3rd_div() + "<br><br>" +
+	                officeRpt.getDf_4th_div() + "<br><br>" +
+	                officeRpt.getDf_5th_div() + "<br><br>" +
+	                "</body></html>";
+
+	        // 🔥 IMPORTANT: Set response headers
+	        response.setContentType("application/msword");
+	        response.setHeader("Content-Disposition", "attachment; filename=eDecree_doc_for_hindi.doc");
+
+	        // 🔥 Write to browser instead of file
+	        response.getOutputStream().write(html.getBytes("UTF-8"));
+	        response.getOutputStream().flush();
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	
+	
+	@RequestMapping(value = "/downloadDecreeDocL/{id}", method = RequestMethod.GET)
+	public void createDoc(@PathVariable("id") Long caseFileId,
+	                      HttpServletResponse response) {
+
+	    try {
+
+	        DecreeForm officeRpt = noticeService.getDecreeForm(caseFileId);
+
+	        WordprocessingMLPackage wordPackage = WordprocessingMLPackage.createPackage();
+	        MainDocumentPart main = wordPackage.getMainDocumentPart();
+
+	        // Add content
+	        main.addParagraphOfText(officeRpt.getDf_first_div());
+	        main.addParagraphOfText("");
+	        main.addParagraphOfText(officeRpt.getDf_2nd_div());
+	        main.addParagraphOfText("");
+	        main.addParagraphOfText(officeRpt.getDf_editor());
+	        main.addParagraphOfText("");
+	        main.addParagraphOfText(officeRpt.getDf_3rd_div());
+	        main.addParagraphOfText("");
+	        main.addParagraphOfText(officeRpt.getDf_4th_div());
+	        main.addParagraphOfText("");
+	        main.addParagraphOfText(officeRpt.getDf_5th_div());
+
+	        // =========================
+	        // LEGAL PAGE SETUP
+	        // =========================
+	        SectPr sectPr = wordPackage.getDocumentModel()
+	                .getSections().get(0).getSectPr();
+
+	        ObjectFactory factory = new ObjectFactory();
+
+	        // Page Size (LEGAL)
+	        SectPr.PgSz pgSz = factory.createSectPrPgSz();
+	        pgSz.setW(BigInteger.valueOf(12240)); // width
+	        pgSz.setH(BigInteger.valueOf(20160)); // height
+	        sectPr.setPgSz(pgSz);
+
+	        // Margins
+	        SectPr.PgMar pgMar = factory.createSectPrPgMar();
+	        pgMar.setTop(BigInteger.valueOf(1440));
+	        pgMar.setBottom(BigInteger.valueOf(1440));
+	        pgMar.setLeft(BigInteger.valueOf(1800));
+	        pgMar.setRight(BigInteger.valueOf(1440));
+
+	        sectPr.setPgMar(pgMar);
+
+	        // =========================
+	        // RESPONSE
+	        // =========================
+	        response.setContentType(
+	                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+	        );
+	        response.setHeader("Content-Disposition",
+	                "attachment; filename=Decree_Legal.docx");
+
+	        wordPackage.save(response.getOutputStream());
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@RequestMapping(value = "/genratePdfStrem", method = RequestMethod.POST)
 	public @ResponseBody String genratePdfStrem(@RequestBody DecreeForm decreeForm, HttpSession session) {
@@ -1302,10 +1423,10 @@ public class NoticeController {
 	
 	@RequestMapping(value = "/getDecreeDR", method = RequestMethod.GET)
 	public @ResponseBody String getDecreeDR(HttpSession session) {
-		ActionResponse<List<DecreeForm>> response = new ActionResponse<List<DecreeForm>>();
+		ActionResponse<List<DecreeExamDTO>> response = new ActionResponse<List<DecreeExamDTO>>();
 		String jsonData = "";
 		User u = (User) session.getAttribute("USER");
-		List<DecreeForm> types = noticeService.getDecreeForExam(u.getUm_id());
+		List<DecreeExamDTO> types = noticeService.getDecreeForExam(u.getUm_id());
 		
 		response.setData("TRUE");
 		response.setModelData(types);
@@ -1448,18 +1569,17 @@ public class NoticeController {
 	
 	
 	@RequestMapping(value = "/getDecreeExamList", method = RequestMethod.GET)
-	public @ResponseBody String getDecreeExamList(HttpSession session) {
-		ActionResponse<List<DecreeForm>> response = new ActionResponse<List<DecreeForm>>();
-		String jsonData = "";
-		User u = (User) session.getAttribute("USER");
-		List<DecreeForm> types = noticeService.getDecreeForExam(u.getUm_id());
-		
-		response.setData("TRUE");
-		response.setModelData(types);
-		
-		
-		jsonData = globalfunction.convert_to_json(response);
-		return jsonData;
+	public @ResponseBody ActionResponse<List<DecreeExamDTO>> getDecreeExamList(HttpSession session) {
+
+	    User u = (User) session.getAttribute("USER");
+
+	    List<DecreeExamDTO> types = noticeService.getDecreeForExam(u.getUm_id());
+
+	    ActionResponse<List<DecreeExamDTO>> response = new ActionResponse<>();
+	    response.setData("TRUE");
+	    response.setModelData(types);
+
+	    return response;
 	}
 	
 	@RequestMapping(value = "/getRes/{id}", method = RequestMethod.GET)

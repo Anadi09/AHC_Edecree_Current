@@ -9,7 +9,6 @@
 	rel="stylesheet">
 
 <style>
-
 .btn-sm {
 	border-radius: 20px;
 	padding: 5px 12px;
@@ -31,7 +30,6 @@
 .pre-line {
 	white-space: pre-line;
 }
-
 </style>
 </head>
 <body>
@@ -40,7 +38,8 @@
 			oncontextmenu="return false;">
 
 			<input type="hidden" class="form-control" value=${doc_id
-				} id="doc_id" name="doc_id">
+				}
+				id="doc_id" name="doc_id">
 
 			<div class="row" style="width: 800px">
 				<!-- begin col-12 -->
@@ -85,8 +84,7 @@
 										style="border-style: double; padding-right: 25px; padding-left: 25px; padding-top: 30px; letter-spacing: 1px;"
 										contenteditable="true">
 										<div id="target31"></div>
-										</br>
-										</br>
+										</br> </br>
 										<div>
 											<h2
 												style="width: 100%; text-align: center; border-bottom: 1px solid #000; line-height: 0.1em; margin: 10px 0 20px;"></h2>
@@ -101,79 +99,82 @@
 
 										<div id="target51">
 
-											<div style="height: 220px">
-												<div align="left"
-													style="float: left; width: 30%; height: 200px">
-													<h6>
-														<span>Prepared By <br /> Decree-Writer :
-															{{decreeForm.crBy.um_fullname}} <br /> Date
-															:{{decreeForm.df_cr_date | date:'dd-MM-yyyy'}} <br /> <br />
-															<!-- Examined By <br /> Decree-Writer :
-															:{{decreeForm.exBy.um_fullname}} <br /> Date
-															:{{decreeForm.df_exam_date | date:'dd-MM-yyyy'}} -->
-															
-															Examined By <br /> Decree-Writer :
-															:{{decreeStage[0].crBy.um_fullname}} <br /> Date
-															:{{decreeStage[0].ds_cr_date | date:'dd-MM-yyyy'}}
-														</span>
+											<table style="width: 100%; border-collapse: collapse;">
+												<tr>
 
-													</h6>
+													<!-- LEFT SIDE -->
+													<td
+														style="width: 50%; vertical-align: top; text-align: left;">
 
-													<h6>
-														<span class="danger">*Not signed by the Advocates
-															for <br />appellant and respondent <br />though served. <br />
-															Decree-Writer <br /> Date
-														</span>
-													</h6>
+														<p style="margin: 0; font-size: 12px;">
+															Prepared By Vijay chaurasiya <br /> Decree-Writer :
+															{{decreeForm.crBy.um_fullname}} <br /> Date :
+															{{decreeForm.df_cr_date | date:'dd-MM-yyyy'}} <br />
+															<br /> Examined By <br /> Decree-Writer :
+															{{decreeForm.exBy.um_fullname}} <br /> Date :
+															{{decreeForm.df_exam_date | date:'dd-MM-yyyy'}}
+														</p>
 
-												</div>
+														<p style="margin-top: 10px; font-size: 12px;">
+															<span class="danger"> *Not signed by the Advocates
+																for <br /> appellant and respondent <br /> though
+																served.<br /> Decree-Writer <br /> Date
+															</span>
+														</p>
 
-												<!-- <div align="center"  style="float :left;width:30%;height:220px">
-									<h6>
-									Examined By <br/>  Decree-Writer :{{decreeForm.ex2By.um_fullname}}  <br/> Date :{{decreeForm.df_exam2_date | date:'dd-MM-yyyy'}}</span>
-										 <br/>    Examined By <br/>  Decree-Writer :{{decreeForm.ex3By.um_fullname}}  <br/> Date :{{decreeForm.df_exam3_date | date:'dd-MM-yyyy'}}</span>
-										</h6>
-									</div> -->
-												<div align="right"
-													style="float: right; width: 30%; height: 220px">
+													</td>
 
-													<h6 align="right" style="color: black; line-height: 8px;">
-														<%=role.equals("Deputy Registrar(Decree)") ? user.getUm_fullname() : " "%><br />
-														*Deputy Registrar
-													</h6>
-													<h6 align="right" style="color: black; line-height: 8px;">Allahabad/Lucknow</h6>
-													<h6 align="right" style="color: black; line-height: 12px;">
-														*(The Deputy Registrar shall give below his<br />
-														signature the date on which he actually<br /> signs the
-														decree)
-													</h6>
+													<!-- RIGHT SIDE -->
+													<td
+														style="width: 50%; vertical-align: top; text-align: right;">
 
-													<h6>
-														Advocate for appellant <br/>Date
-														</h5>
-														<br/>
-														<br/>
-														<h6>
-															Advocate for respondent <br/>Date
-															</h5>
-												</div>
-											</div>
+														<p style="margin: 0; font-size: 12px; line-height: 12px;">
+															<%=role.equals("Deputy Registrar(Decree)") ? user.getUm_fullname() : ""%><br />
+															*Deputy Registrar
+														</p>
 
+														<p style="margin: 5px 0; font-size: 12px;">
+															Allahabad/Lucknow</p>
 
+														<p style="margin: 0; font-size: 12px; line-height: 14px;">
+															*(The Deputy Registrar shall give below his<br />
+															signature the date on which he actually<br /> signs the
+															decree)
+														</p> <br />
 
+														<p style="margin: 0; font-size: 12px;">
+															Advocate for appellant <br /> Date
+														</p> <br />
 
-											<div style="width: 100%; padding-top: 10px"">
+														<p style="margin: 0; font-size: 12px;">
+															Advocate for respondent <br /> Date
+														</p>
 
-												<h2
-													style="width: 100%; text-align: center; border-bottom: 1px solid #000; line-height: 0.1em; margin: 10px 0 20px;"></h2>
-												<h5>* To be scored out when the Advocates have put
-													their signatures.</h5>
-											</div>
+													</td>
+
+												</tr>
+												<tr>
+													<td colspan="2" style="width: 100%; text-align: center;">
+
+														<p
+															style="width: 100%; border-bottom: 1px solid #000; line-height: 0; margin: 0;"></p>
+
+														<h5 style="margin: 2px;">* To be scored out when the
+															Advocates have put their signatures.</h5>
+
+													</td>
+												</tr>
+											</table>
+
 										</div>
 
+
+
 									</div>
+
 								</div>
-				<div id="pdfContent">				
+							</div>
+							<div id="pdfContent">
 								<div id="target1" ng-show="decreeForm==null"
 									style="border-style: double; padding-right: 25px; padding-left: 25px; padding-top: 30px; letter-spacing: 1px;"
 									contenteditable="true">
@@ -188,10 +189,10 @@
 										<h5>_________________</h5>
 										<h4>Appellate Jurisdiction</h4>
 									</div>
-									<br/>
+									<br />
 									<div align="left">
 										<h5>
-											{{caseDetailsCIS.caseType}} no.{{caseDet[1]}} of 
+											{{caseDetailsCIS.caseType}} no.{{caseDet[1]}} of
 											{{caseDet[2]}} instituted on the {{da}} day of {{mo}} ,
 											{{ye}} from the decree | order of the
 
@@ -220,9 +221,7 @@
 										<h5 align="right">Respondent.</h5>
 
 
-										<br />
-										<br />
-										<br />
+										<br /> <br /> <br />
 										<h5>
 											The valuation of the appeal for purposes of
 											<span1> jurisdiction</span1>
@@ -230,7 +229,7 @@
 											<span1> Court-fees is, Rs.</span1>
 										</h5>
 									</div>
-									<br/>
+									<br />
 								</div>
 
 								<div ng-show="decreeForm==null"
@@ -245,8 +244,7 @@
 										<h5 style="float: left">the {{jgName[0]}}</h5>
 
 
-										<br />
-										<br />
+										<br /> <br />
 										<h5 align="center">and</h5>
 
 										<h5>
@@ -291,7 +289,7 @@
 								</div>
 
 								<div
-									style="border-style: double; padding-right: 25px; padding-left: 35px; padding-top: 30px;page-break-before: always;"
+									style="border-style: double; padding-right: 25px; padding-left: 35px; padding-top: 30px; page-break-before: always;"
 									ng-show="decreeForm==null">
 									<div id="target3" contenteditable="true">
 										<h5 align="center">(3)</h5>
@@ -309,7 +307,7 @@
 												no.--- aforesaid the sum of Rs. --- the amount of costs
 												incurred by -- in the lower court, with interest thereon
 												as/awarded/by the said Court
-												________________________________ .<br/>
+												________________________________ .<br />
 												</p>
 												<p>&nbsp; &nbsp; &nbsp; &nbsp; Dated this* {{dda}} day
 													of {{dmo}} in the year two thousand and {{dye}} .
@@ -319,8 +317,7 @@
 
 									</div>
 
-									<br />
-									<br />
+									<br /> <br />
 									<div ng-show="decreeForm==null">
 										<h2
 											style="width: 100%; text-align: center; border-bottom: 1px solid #000; line-height: 0.1em; margin: 10px 0 20px;"></h2>
@@ -338,16 +335,15 @@
 
 									<div id="target4">
 										<h6 align="center">(4)</h6>
-										<br />
-										<h6 align="center" style="padding: 10px; line-height: 8px;">MEMORANDUM
+
+										<h6 align="center" style="line-height: 2px;">MEMORANDUM
 											OF COST</h6>
-										<br />
+
 
 										<div>
 											<!-- <table border="1"
 												style="width: 100%; color: black; font-size: 90%; font-family: 'Courier New', Helvetica, sans-serif;"> -->
-												<table border="1"
-												style="width: 100%; color: black; font-size: 90%;">
+											<table style="width: 100%; color: black; font-size: 90%;">
 												<tr>
 													<th style="width: 60%; border-style: ridge;"><h6
 															align="center">
@@ -569,128 +565,139 @@
 									</div>
 
 									<div id="target5" ng-show="decreeForm==null">
-										<div style="height: 220px">
-											<div align="left"
-												style="float: left; width: 30%; height: 200px">
-												<h6>
-													<span>Prepared By <br /> Decree-Writer : <%="" + capitalizeWord(user.getUm_fullname())%>
-													<%-- <span>Prepared By <br /> Decree-Writer : <%=role.equals("DECREE CREATOR") ? user.getUm_fullname() : " "%> --%>
-														<br /> Date :<%="" + new SimpleDateFormat("dd-MM-yyyy").format(new Date())%>
-														<br /> <br /> Examined By <br /> Decree-Writer : :<%=role.equals("DECREE EXAMINER") ? user.getUm_fullname() : " "%>
-														<br /> Date :<%=role.equals("DECREE EXAMINER") ? new SimpleDateFormat("dd-MM-yyyy").format(new Date()) : " "%></span>
 
-												</h6>
+										<table style="width: 100%; border-collapse: collapse;">
+											<tr>
 
-												<h6>
-													<span class="danger">*Not signed by the Advocates
-														for <br />appellant and respondent <br />though served. <br />
-														Decree-Writer <br /> Date
-													</span>
-												</h6>
+												<!-- LEFT SIDE -->
+												<td
+													style="width: 50%; vertical-align: top; text-align: left; padding-right: 20px;">
 
-											</div>
+													<p style="margin: 0; font-size: 12px;">
+														Prepared By fsfdsfds<br /> Decree-Writer :
+														<%= "" + capitalizeWord(user.getUm_fullname()) %>
+														<br /> Date :
+														<%= "" + new SimpleDateFormat("dd-MM-yyyy").format(new Date()) %>
+														<br />
+														<br /> Examined By <br /> Decree-Writer :
+														<%= role.equals("DECREE EXAMINER") ? user.getUm_fullname() : " " %>
+														<br /> Date :
+														<%= role.equals("DECREE EXAMINER") 
+                        ? new SimpleDateFormat("dd-MM-yyyy").format(new Date()) 
+                        : " " %>
+													</p> <br />
 
-											<%-- <div align="center"  style="float :left;width:30%;height:220px">
-									<h6>
-									Examined By <br/>  Decree-Writer :<%=role.equals("DECREE EXAMINER") ? user.getUm_fullname(): " "%>  <br/> Date :<%=role.equals("DECREE EXAMINER") ? new SimpleDateFormat("dd-MM-yyyy").format(new Date()): " "%></span>
-										 <br/>    Examined By <br/>  Decree-Writer :<%=role.equals("DECREE EXAMINER") ? user.getUm_fullname(): " "%>  <br/> Date :<%=role.equals("DECREE EXAMINER") ? new SimpleDateFormat("dd-MM-yyyy").format(new Date()): " "%></span>
-										</h6>
-									</div> --%>
-											<div align="right"
-												style="float: right; width: 30%; height: 220px">
+													<p style="margin: 0; font-size: 12px;">
+														<span class="danger"> *Not signed by the Advocates
+															for <br /> appellant and respondent <br /> though served.<br />
+															Decree-Writer <br /> Date
+														</span>
+													</p>
 
-												<h6 align="right" style="color: black; line-height: 8px;">
-													<%=role.equals("Deputy Registrar(Decree)") ? user.getUm_fullname() : " "%><br />
-													*Deputy Registrar
-												</h6>
-												<h6 align="right" style="color: black; line-height: 8px;">Allahabad/Lucknow</h6>
-												<h6 align="right" style="color: black; line-height: 12px;">
-													*(The Deputy Registrar shall give <br /> below his
-													signature the date on <br />which he actually signs the
-													decree)
-												</h6>
+												</td>
 
-												<h6>
-													Advocate for appellant <br>Date
-													</h5>
-													<br>
-													<br>
-													<h6>
-														Advocate for respondent <br>Date
-														</h5>
-											</div>
-										</div>
+												<!-- RIGHT SIDE -->
+												<td
+													style="width: 50%; vertical-align: top; text-align: right; padding-left: 20px;">
 
+													<p style="margin: 0; font-size: 12px; line-height: 12px;">
+														<%= role.equals("Deputy Registrar(Decree)") ? user.getUm_fullname() : "" %><br />
+														*Deputy Registrar
+													</p>
 
+													<p style="margin: 5px 0; font-size: 12px;">
+														Allahabad/Lucknow</p>
 
+													<p style="margin: 0; font-size: 12px; line-height: 14px;">
+														*(The Deputy Registrar shall give <br /> below his
+														signature the date on <br /> which he actually signs the
+														decree)
+													</p> <br />
 
-										<div style="width: 100%; padding-top: 10px"">
+													<p style="margin: 0; font-size: 12px;">
+														Advocate for appellant <br /> Date
+													</p> <br />
 
-											<h2
-												style="width: 100%; text-align: center; border-bottom: 1px solid #000; line-height: 0.1em; margin: 10px 0 20px;"></h2>
-											<h5>* To be scored out when the Advocates have put their
-												signatures.</h5>
-										</div>
+													<p style="margin: 0; font-size: 12px;">
+														Advocate for respondent <br /> Date
+													</p>
+
+												</td>
+
+											</tr>
+											<tr>
+												<td colspan="2" style="width: 100%; text-align: center;">
+
+													<p
+														style="width: 100%; border-bottom: 1px solid #000; line-height: 0; margin: 0;"></p>
+
+													<h5 style="margin-bottom: 2px;">* To be scored out
+														when the Advocates have put their signatures.</h5>
+
+												</td>
+											</tr>
+										</table>
+
 									</div>
+
 								</div>
+							</div>
+					</div>
 
-</div>
-
-								<div align="center">
-									<!-- <button class="btn btn-primary" ng-click="digitalSign(decreeForm.df_fd_mid)">Digital Sign</button></td> -->
+					<div align="center">
+						<!-- <button class="btn btn-primary" ng-click="digitalSign(decreeForm.df_fd_mid)">Digital Sign</button></td> -->
 
 
 
-									<br />
-									<button
-										ng-hide="decreeForm.df_locked==true  
+						<br />
+						<button
+							ng-hide="decreeForm.df_locked==true  
 								 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004  || decreeForm.df_stage_lid==4008
 								|| decreeForm.df_stage_lid==4006 || (<%=user.getUm_id()%>!=decreeForm.df_assign_to && decreeForm.df_assign_to!=null)"
-										class="btn btn-primary btn-sm" ng-click="saveForm()">save</button>
-									<br /> <br />
+							class="btn btn-primary btn-sm" ng-click="saveForm()">save</button>
+						<br /> <br />
 
-									<%-- <br/><button ng-hide="decreeForm.df_locked==true   
+						<%-- <br/><button ng-hide="decreeForm.df_locked==true   
 								|| decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004  || decreeForm.df_stage_lid==4008
 								|| decreeForm.df_stage_lid==4006 || (<%= user.getUm_id() %>!=decreeForm.df_assign_to && decreeForm.df_assign_to!=null)"  
 								class="btn btn-primary btn-sm" ng-click="updateForm(decreeForm)">Update</button>
 								<br/> <br/> --%>
 
-									<br />
-									<%
+						<br />
+						<%
 									if (user.getUserroles().get(0).getLk().getLk_longname().equals("Deputy Registrar(Decree)")) {
 									%>
-									<br />
-									<button
-										ng-show="decreeForm.df_locked==false   
+						<br />
+						<button
+							ng-show="decreeForm.df_locked==false   
 								&& decreeForm.df_stage_lid==4008 "
-										class="btn btn-primary btn-sm" ng-click="saveForm()">Approve</button>
-									<%
+							class="btn btn-primary btn-sm" ng-click="saveForm()">Approve</button>
+						<%
 									}
 									%>
-									<br /> <br /> <span
-										ng-repeat="data in decreeForm.decreeFileUploaded"
-										ng-hide="decreeForm.df_locked==true"> <a href=""
-										ng-click="preview(data.dfu_id)">{{data.dfu_file_name}}</a>
-										<button class="btn btn-primary btn-sm"
-											ng-click="deleteFile(data.dfu_id)">Delete</button>
-										<br />
+						<br /> <br /> <span
+							ng-repeat="data in decreeForm.decreeFileUploaded"
+							ng-hide="decreeForm.df_locked==true"> <a href=""
+							ng-click="preview(data.dfu_id)">{{data.dfu_file_name}}</a>
+							<button class="btn btn-primary btn-sm"
+								ng-click="deleteFile(data.dfu_id)">Delete</button> <br />
 
-									</span> <br />
+						</span> <br />
 
-									<%
+						<%
 									if (user.getUserroles().get(0).getLk().getLk_longname().equals("DECREE CREATOR")) {
 									%>
 
-									<div
-										ng-show="decreeForm.df_stage_lid==4000 && decreeForm.df_file_name==null">
-										<label for="file">File<span class="star">*</span></label> <input
-											type="file" style="color: red;" ngf-select ng-model="picFile"
-											name="file">
-										<button class="btn btn-primary btn-sm" ng-click="uploadFile()">Upload</button>
-									</div>
-									<br />
+						<div
+							ng-show="decreeForm.df_stage_lid==4000 && decreeForm.df_file_name==null">
+							<label for="file">File<span class="star">*</span></label> <input
+								type="file" style="color: red;" ngf-select ng-model="picFile"
+								name="file">
+							<button class="btn btn-primary btn-sm" ng-click="uploadFile()">Upload</button>
+						</div>
+						<br />
 
-									<%-- <select class="form-control" ng-model="assign_to" style="width:250px"
+						<%-- <select class="form-control" ng-model="assign_to" style="width:250px"
 								 ng-show="decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
 								|| decreeForm.df_stage_lid==4006 || (<%= user.getUm_id() %>!=decreeForm.df_assign_to && decreeForm.df_assign_to!=null)"
 							 ng-options="um.um_id as um.um_fullname for um in decreeCreator  ">
@@ -705,166 +712,166 @@
 
 
 
-									<select class="form-control" ng-model="assign_to"
-										style="width: 250px"
-										<%-- ng-show="decreeForm.df_stage_lid==4000 || decreeForm.df_assign_to == <%=user.getUm_id()%>" --%>
+						<select class="form-control" ng-model="assign_to"
+							style="width: 250px"
+							<%-- ng-show="decreeForm.df_stage_lid==4000 || decreeForm.df_assign_to == <%=user.getUm_id()%>" --%>
 										ng-show="(decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 || decreeForm.df_stage_lid==4006) 
 										&& decreeForm.df_assign_to == <%=user.getUm_id()%>"
-										ng-options="um.um_id as um.um_fullname for um in decreeCreator">
+							ng-options="um.um_id as um.um_fullname for um in decreeCreator">
 
-										<option value="">Select Decree Examinor/Deputy
-											Registrar</option>
-									</select></br>
+							<option value="">Select Decree Examinor/Deputy Registrar</option>
+						</select></br>
 
-									<button
-										ng-show="(decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 || decreeForm.df_stage_lid==4006) 
+						<button
+							ng-show="(decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 || decreeForm.df_stage_lid==4006) 
 										&& decreeForm.df_assign_to == <%=user.getUm_id()%>"
-										class="btn btn-primary btn-sm" ng-click="nextStage(4001)">
-										Assign To</button>
-									</br>
+							class="btn btn-primary btn-sm" ng-click="nextStage(4001)">
+							Assign To</button>
+						</br>
 
-									<button
-										ng-show="(decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 || decreeForm.df_stage_lid==4006) 
+						<button
+							ng-show="(decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 || decreeForm.df_stage_lid==4006) 
 										&& decreeForm.df_assign_to == <%=user.getUm_id()%>"
-										class="btn btn-primary" data-toggle="modal"
-										data-target="#returntodecree">Return Remark</button>
+							class="btn btn-primary" data-toggle="modal"
+							data-target="#returntodecree">Return Remark</button>
 
 
-									<%
+						<%
 									}
 									%>
 
-									<%
+						<%
 									if (user.getUserroles().get(0).getLk().getLk_longname().equals("Deputy Registrar(Decree)")) {
 									%>
 
 
-									<button
-										ng-show="decreeForm.df_stage_lid==4008 && decreeForm.df_locked==false"
-										class="btn btn-primary" data-toggle="modal"
-										data-target="#returntodecree">Return Remark</button>
+						<button
+							ng-show="decreeForm.df_stage_lid==4008 && decreeForm.df_locked==false"
+							class="btn btn-primary" data-toggle="modal"
+							data-target="#returntodecree">Return Remark</button>
 
-									<%
+						<%
 									}
 									%>
 
 
-									<div class="panel panel-inverse overflow-hidden"
-										ng-hide="decreeForm.df_stage_lid==4000 ">
+						<div class="panel panel-inverse overflow-hidden"
+							ng-hide="decreeForm.df_stage_lid==4000 ">
 
 
 
-										<div class="modal fade" id="returntodecree" tabindex="-1"
-											role="dialog" aria-labelledby="myModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog modal-lg" style="height: 200px;">
-												<div class="modal-content">
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal"
-															aria-label="Close">
-															<span aria-hidden="true">&times;</span>
-														</button>
-														<h4 class="modal-title" id="myModalLabel">
-															<strong>Return to Decree Writer</strong>
-														</h4>
-													</div>
-													<div class="modal-body">
+							<div class="modal fade" id="returntodecree" tabindex="-1"
+								role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg" style="height: 200px;">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											<h4 class="modal-title" id="myModalLabel">
+												<strong>Return to Decree Writer</strong>
+											</h4>
+										</div>
+										<div class="modal-body">
 
-														<div class="panel-body">
-															<div class="form-group pull-in clearfix">
-																<div class="col-sm-3">
-																	<div>
-																		<label class=" control-label" for="file">Remarks<span
-																			class="star">*</span></label>
-																		<textarea type="text" class="form-control"
-																			ng-model="decreeForm.remark" name="file"
-																			style="width: 200%; height: 100px"></textarea>
-																		<!--  <textarea class="form-control" ng-model="registerCase.remark" style="left: 50%;" ></textarea> -->
+											<div class="panel-body">
+												<div class="form-group pull-in clearfix">
+													<div class="col-sm-3">
+														<div>
+															<label class=" control-label" for="file">Remarks<span
+																class="star">*</span></label>
+															<textarea type="text" class="form-control"
+																ng-model="decreeForm.remark" name="file"
+																style="width: 200%; height: 100px"></textarea>
+															<!--  <textarea class="form-control" ng-model="registerCase.remark" style="left: 50%;" ></textarea> -->
 
-																	</div>
-																</div>
-															</div>
-
-															<!-- <button id="btnPrint" class="btn btn-primary">Print</button> -->
-															<input type="submit" value="Submit" id="Submit"
-																ng-click="returnToDecreeWriter(decreeForm)"
-																ng-disabled="buttonDisabled"
-																data-loading-text="Loading..." class="btn btn-primary"
-																data-toggle="modal" />
 														</div>
 													</div>
 												</div>
+
+												<!-- <button id="btnPrint" class="btn btn-primary">Print</button> -->
+												<input type="submit" value="Submit" id="Submit"
+													ng-click="returnToDecreeWriter(decreeForm)"
+													ng-disabled="buttonDisabled" data-loading-text="Loading..."
+													class="btn btn-primary" data-toggle="modal" />
 											</div>
 										</div>
 									</div>
 								</div>
+							</div>
+						</div>
+					</div>
 
 
 
 
-								<%
+					<%
 								if (user.getUserroles().get(0).getLk().getLk_longname().equals("Deputy Registrar(Decree)")) {
 								%>
-								<div
-									ng-show="decreeForm.df_stage_lid==4008 && decreeForm.df_locked==true">
-									<button
-										ng-show="decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
-								|| decreeForm.df_stage_lid==4006"
-										ng-show="decreeForm.df_id" class="btn btn-primary btn-sm"
-										ng-click="nextStage(4001)">Assign To</button>
-									<br />
-									<button
-										ng-show="decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
-								|| decreeForm.df_stage_lid==4006"
-										class="btn btn-primary" data-toggle="modal"
-										data-target="#returntodecree">Return Remark</button>
-								</div>
+					<div
+						ng-show="decreeForm.df_stage_lid==4008 && decreeForm.df_locked==true">
 
-								<div
-									ng-hide="decreeForm.df_stage_lid==4008 && decreeForm.df_locked==true">
-									<label class="col-md-4 control-label" for="file">File<span
-										class="star">*</span></label> <input type="file" ngf-select
-										ng-model="picFile" name="file">
-									<button class="btn btn-primary btn-sm" ng-click="uploadFile()">Upload</button>
-									<button class="btn btn-primary btn-sm"
-										ng-click="downloadDecree()">download</button>
-								</div>
+						<button
+							ng-show="decreeForm.df_stage_lid==4000 || decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
+                                        || decreeForm.df_stage_lid==4006"
+							ng-if="decreeForm.df_id" class="btn btn-primary btn-sm"
+							style="margin-bottom: 10px;" ng-click="nextStage(4001)">
+							Assign To</button>
 
-								<!-- <td><button class="btn btn-primary" ng-click="digitalSign(decreeForm.df_fd_mid)">Digital Sign</button></td> -->
-								<%
+						<button
+							ng-show="decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 
+                                         || decreeForm.df_stage_lid==4006"
+							class="btn btn-primary btn-sm" data-toggle="modal"
+							data-target="#returntodecree">Return Remark</button>
+
+					</div>
+
+					<div
+						ng-hide="decreeForm.df_stage_lid==4008 && decreeForm.df_locked==true">
+						<label class="col-md-4 control-label" for="file">File<span
+							class="star">*</span></label> <input type="file" ngf-select
+							ng-model="picFile" name="file">
+						<button class="btn btn-primary btn-sm" ng-click="uploadFile()">Upload</button>
+						<button class="btn btn-primary btn-sm" ng-click="downloadDecree()">download</button>
+					</div>
+
+					<!-- <td><button class="btn btn-primary" ng-click="digitalSign(decreeForm.df_fd_mid)">Digital Sign</button></td> -->
+					<%
 								}
 								%>
 
-								<!-- <button ng-show="decreeForm.df_locked==true" class="btn btn-primary btn-sm" ng-click="downloadDecree()">download</button> -->
-								<button
-									ng-show="decreeForm.df_locked==true && decreeForm.df_stage_lid==4008"
-									class="btn btn-primary btn-sm" ng-click="downloadDecree()">download</button>
+					<!-- <button ng-show="decreeForm.df_locked==true" class="btn btn-primary btn-sm" ng-click="downloadDecree()">download</button> -->
+					<button
+						ng-show="decreeForm.df_locked==true && decreeForm.df_stage_lid==4008"
+						class="btn btn-primary btn-sm" ng-click="downloadDecree()">download</button>
 
-								<span ng-show="decreeForm.df_locked==true"><b> Decree
-										already generated. </b></span>
-								<!-- <button ng-show="decreeForm.df_stage_lid!==null" class="btn btn-primary btn-sm" ng-click="downloadDecree()">Preview</button> -->
+					<span ng-show="decreeForm.df_locked==true"><b> Decree
+							already generated. </b></span>
+					<!-- <button ng-show="decreeForm.df_stage_lid!==null" class="btn btn-primary btn-sm" ng-click="downloadDecree()">Preview</button> -->
 
-								<button
-									ng-show="decreeForm.df_stage_lid !==4008 && decreeForm.df_stage_lid !=4000"
-									class="btn btn-primary btn-sm" ng-click="downloadDecree()">Preview</button>
-									
-				<!-- 					<button
-									ng-show="decreeForm.df_stage_lid !==4008 && decreeForm.df_stage_lid !=4000"
-									class="btn btn-primary btn-sm" ng-click="downloadDecreeJs()">Preview js</button> -->
+					<button ng-show="decreeForm.df_stage_lid !==4008  "
+						class="btn btn-primary btn-sm" ng-click="generateDoc()">Download
+						Doc File only for Hindi</button>
+
+					<button
+						ng-show="decreeForm.df_stage_lid !==4008 && decreeForm.df_stage_lid !=4000"
+						class="btn btn-primary btn-sm" ng-click="downloadDecree()">Download
+						PDF File only for English</button>
 
 
-							</div>
-					</div>
 				</div>
-				</form>
-
-
-
-
 			</div>
 		</div>
+		</form>
 
-		<!-- <div hidden="true">
+
+
+
+	</div>
+	</div>
+
+	<!-- <div hidden="true">
 		  <label for="pdfData">Pdf Data(Base64)):</label>
             <br />
             <textarea id="pdfData" placeholder="Choose pdf file above to show pdf data..." cols="60" rows="4" readonly="readonly"></textarea>
@@ -911,9 +918,12 @@
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script> -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/angularJs/ng-file-upload.js"></script>

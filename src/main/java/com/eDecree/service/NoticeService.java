@@ -1,5 +1,6 @@
 package com.eDecree.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,14 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eDecree.model.ApplicationNotice;
 import com.eDecree.model.CaseNotice;
-import com.eDecree.model.CourtMaster;
+import com.eDecree.model.DecreeExamDTO;
 import com.eDecree.model.DecreeFileUploaded;
 import com.eDecree.model.DecreeForm;
 import com.eDecree.model.DecreeStage;
 import com.eDecree.model.SubDocument;
 import com.eDecree.model.User;
-import com.eDecree.model.UserRole;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 @Service
 public class NoticeService {
@@ -192,24 +191,32 @@ public class NoticeService {
 		return data;
 	}
 	
-	
 	@Transactional("transactionManager")
-	public  List<DecreeForm>   getDecreeForExam(Long stage) {
-		
-		 List<DecreeForm>  data =null;
-		
-		
-		
-		try {
-			String query  ="SELECT ct from DecreeForm ct where ct.df_assign_to ="+stage;
-			data=   (List<DecreeForm>) em.createQuery(query).getResultList();
-		}
-		catch (Exception e) {
-			System.out.println("ggggggggggggggggggggggg"+e);
-			
-		}
-		
-		return data;
+	public List<DecreeExamDTO> getDecreeForExam(Long stage) {
+
+	    List<DecreeExamDTO> data = new ArrayList<>();
+
+	    try {
+	        String query = "SELECT new com.eDecree.model.DecreeExamDTO(" +
+	                "d.df_fd_mid, " +
+	                "c.caseType.ct_label, " +
+	                "c.fd_case_no, " +
+	                "c.fd_case_year, " +
+	                "d.df_remark, " +
+	                "d.df_cr_date) " +
+	                "FROM DecreeForm d " +
+	                "JOIN d.caseFileDetail c " +
+	                "WHERE d.df_assign_to = :stage";
+
+	        data = em.createQuery(query, DecreeExamDTO.class)
+	                .setParameter("stage", stage)
+	                .getResultList();
+
+	    } catch (Exception e) {
+	        e.printStackTrace(); // ✅ replace with logger if available
+	    }
+
+	    return data;
 	}
 	
 	@Transactional("transactionManager")
@@ -458,7 +465,7 @@ public class NoticeService {
 	public DecreeStage getReturnDecreeStage(Long id) {
 		DecreeStage cm =null;
 		try {
-			String query  ="SELECT dc from DecreeStage dc where ds_df_mid in (select df_id from DecreeForm  where df_fd_mid = "+id+") " +"and ds_stage_lid = 4000L";
+			String query  ="SELECT dc from DecreeStage dc where ds_df_mid in (select df_id from DecreeForm  where df_fd_mid = "+id+") " +"and ds_stage_lid = 4000L"+" order by ds_df_mid DESC";
 			cm=   (DecreeStage) em.createQuery(query).setMaxResults(1).getSingleResult();
 					
 		} catch (Exception e) {

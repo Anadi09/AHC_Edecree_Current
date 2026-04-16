@@ -104,6 +104,23 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 	            };
 	        });*/
 	            
+			
+			
+			
+			
+			$scope.generateDoc=function()
+			 {
+				
+				window.open(urlBase+'notice/downloadDecreeDoc/'+$scope.doc_id,'_self');
+				
+				
+				
+			 }	
+			
+			
+			
+			
+			
 	        
 	        
 	        
@@ -716,6 +733,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		  $scope.decreeForm.df_2nd_div=document.getElementById('target2').innerHTML ;
 		  $scope.decreeForm.df_3rd_div=document.getElementById('target3').innerHTML;
 		  $scope.decreeForm.df_4th_div=document.getElementById('target4').innerHTML;
+		  $scope.decreeForm.df_5th_div=document.getElementById('target5').innerHTML;
 		  $scope.decreeForm.df_editor=$("#txtEditor2").Editor("getText");
 		  
 		 
@@ -727,6 +745,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 			  $scope.decreeForm.df_2nd_div=document.getElementById('target21').innerHTML ;
 			  $scope.decreeForm.df_3rd_div=document.getElementById('target31').innerHTML;
 			  $scope.decreeForm.df_4th_div=document.getElementById('target41').innerHTML;
+			  $scope.decreeForm.df_5th_div=document.getElementById('target51').innerHTML;
 			 // $scope.decreeForm.df_stage_lid=$scope.decreeForm.df_stage_lid+1;
 			  $scope.decreeForm.df_editor=$("#txtEditor1").Editor("getText");
 		  }
