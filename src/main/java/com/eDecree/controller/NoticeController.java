@@ -37,6 +37,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -1019,8 +1020,23 @@ public class NoticeController {
 	
 	// ======================================  Vijay chaurasiya ===================================================	
 	
+
 	
 	
+	
+	@RequestMapping(value = "/getDecreeCaseStatus", method = RequestMethod.GET)
+	public String getDecreeCaseStatusData1(HttpServletRequest request, Model model) {
+
+	    List<Object[]> data = noticeService.getDecreeCaseStatus();
+	    System.out.println("DATA SIZE: " + (data != null ? data.size() : "NULL"));
+
+	    // send data to JSP
+	    model.addAttribute("decreeData", data);
+
+	    return "notice/decreeCaseStatus";
+	}
+	
+//	<!-- ===================================== 	JAVA FULLSTACK DEVELOPER VIJAY CHAURASIYA ================================== -->
 	
 	@RequestMapping(value = "/nextStage", method = RequestMethod.POST)
 	public @ResponseBody String nextStage(@RequestBody DecreeForm decreeForm, HttpSession session) {

@@ -7207,6 +7207,23 @@ else {
 		  
 		  }
 		 
+		  
+		  @RequestMapping(value = "/genrateDecreef1/{id}", method = RequestMethod.GET)
+		  public String genrateDecreef1(@PathVariable("id") Long docId, Model model) {
+		  
+		  CaseFileDetail caseFile = caseFileDetailService.getCaseFileDetail(docId);
+		  
+		  model.addAttribute("doc_id", docId);
+		  
+		  String returnview = "/casefile/generateDecree";
+		  
+		  return returnview;
+		  
+		  }
+		  
+		  
+		  
+		  
 		
 		
 }

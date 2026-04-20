@@ -1634,7 +1634,11 @@ $scope.response=[];
 	};
 
 	
-	
+	$scope.genrateDecreef1 = function(id) {
+
+			window.open(urlBase + "casefile/genrateDecreef1/" + id, "_blank");
+
+		}
 	
 	
 	

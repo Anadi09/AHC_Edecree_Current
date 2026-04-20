@@ -223,6 +223,45 @@ public class NoticeService {
 	    return data;
 	}
 	
+	//================================================== 
+	
+	
+	@Transactional("transactionManager")
+	public List<Object[]> getDecreeCaseStatus() {
+
+	    List<Object[]> data = null;
+
+	    String q = "SELECT DISTINCT " +
+	            "d.df_id, d.df_fd_mid, ct.ct_label, c.fd_case_no, c.fd_case_year, " +
+	            "d.df_remark, d.df_cr_date, d.df_stage_lid, s.ds_cr_by, um.um_fullname " +
+	            "FROM public.decree_form d " +
+	            "JOIN public.case_file_details c ON d.df_fd_mid = c.fd_id " +
+	            "JOIN public.case_types ct ON c.fd_case_type = ct.ct_id " +
+	            "JOIN public.decree_stage s ON s.ds_df_mid = d.df_id " +
+	            "JOIN public.user_master um ON um.um_id = s.ds_cr_by " +
+	            "WHERE d.df_rec_status = 1 " +
+	            "ORDER BY s.ds_cr_date";
+
+	    try {
+	        Query query = em.createNativeQuery(q);
+	        data = query.getResultList();
+	    } catch (Exception e) {
+	        System.out.println("Error in getDecreeData: " + e);
+	    }
+
+	    return data;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@Transactional("transactionManager")
 	public  List<Object[]>   getResCivic(String label) {

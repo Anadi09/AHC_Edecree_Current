@@ -329,6 +329,7 @@ String basePath=(String) request.getAttribute("javax.servlet.forward.context_pat
 			                        		 <li  class="active"><a style ="font-weight: bold;" href="${pageContext.request.contextPath}/casefile/manage">Decree Search </a></li>
 					                        	 <li  class="active"><a style ="font-weight: bold;" href="${pageContext.request.contextPath}/notice/getDecreeForExam">Examine Decree</a></li>
 					                        	<li  class="active"><a style ="font-weight: bold;" href="${pageContext.request.contextPath}/casefile/decree_sendsms">Search Decree Send Sms</a></li> 
+					                        	 	<li  class="active"><a style ="font-weight: bold;" href="${pageContext.request.contextPath}/notice/getDecreeCaseStatus">Decree Case Status</a></li> 
 					                        	  
 					                      <!--     <li  class="active"><a style ="font-weight: bold;" href="#">Decree Send SMS</a></li> -->
 			                        	<% }
