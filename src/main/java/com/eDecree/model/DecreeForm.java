@@ -58,6 +58,18 @@ public class DecreeForm {
 	private String df_4th_div;
 	
 
+	@Column(name="df_5th_div")
+	private String df_5th_div;
+	
+
+	public String getDf_5th_div() {
+		return df_5th_div;
+	}
+
+	public void setDf_5th_div(String df_5th_div) {
+		this.df_5th_div = df_5th_div;
+	}
+
 	@Column(name="df_editor")
 	private String df_editor;
 	

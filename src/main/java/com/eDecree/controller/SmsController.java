@@ -34,193 +34,7 @@ import com.eDecree.service.SendSmsService;
 @Controller
 @RequestMapping("/sms")
 public class SmsController {
-	/*
-	 * 
-	 * @Autowired ServletContext context;
-	 * 
-	 * @Autowired private SendSmsService sendSmsService;
-	 * 
-	 * @Autowired private LookupService lookupService;
-	 * 
-	 * 
-	 * // ***************************** Vijay Chaurasiya
-	 * *************************************************
-	 * 
-	 * @RequestMapping(value = "/sendAdvSingleSms", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public String sendAdvSingleSms(@RequestBody AdvocateDTO
-	 * advocateDto ,HttpSession session) {
-	 * 
-	 * 
-	 * Lookup lookup=new Lookup(); lookup=lookupService.getLookUpObject("SMS_URL");
-	 * System.out.println("***********************"+lookup.getLk_longname()); String
-	 * otpTmpId=""; InetAddress ip; String hostname; String extraLko = "";
-	 * 
-	 * 
-	 * Date date = advocateDto.getTillDate();
-	 * 
-	 * SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); String tillDate =
-	 * sdf.format(date);
-	 * 
-	 * System.out.println("Advocate details for sending sms************************"
-	 * +advocateDto);
-	 * 
-	 * try { ip = InetAddress.getLocalHost(); hostname = ip.getHostAddress();
-	 * System.out.println("Your current IP address : " + ip);
-	 * System.out.println("Your current Hostname : " + hostname);
-	 * 
-	 * if (hostname.equals("172.16.0.6")) { otpTmpId = "1107177019834490428"; } else
-	 * if (hostname.equals("127.0.0.1")) {
-	 * 
-	 * // otpTmpId ="1107160793982323688"; extraLko="-Lko. Bench ";
-	 * 
-	 * otpTmpId = "1107177019834490428"; } else { System.out.println("In Local");
-	 * otpTmpId = "1107177019834490428"; // extraLko="-Lko. Bench "; }
-	 * 
-	 * } catch (UnknownHostException e) {
-	 * 
-	 * e.printStackTrace(); } String otp=" ";
-	 * 
-	 * // get logged in user User user=(User) session.getAttribute("USER");
-	 * 
-	 * 
-	 * String sms_url=lookup.getLk_longname();
-	 * 
-	 * String
-	 * smstext="Decree has been drawn up for "+advocateDto.getCaseType()+"No."+
-	 * advocateDto.getCaseNo()+"/"+advocateDto.getCaseYear()
-	 * +", You are requested to visit Decree Section on or before "+tillDate+ ".";
-	 * 
-	 * String otpresponse = sendSmsService.sendBSNLSMS(sms_url,
-	 * advocateDto.getMobile(), smstext + " -AHC", otpTmpId); // String
-	 * otprespons="1"; if(otpresponse.equals("1")) { DecreeSmsLog dsl=new
-	 * DecreeSmsLog(); dsl.setDslAor(advocateDto.getAor());
-	 * dsl.setDslMobile(advocateDto.getMobile()); dsl.setDslSendDate(new Date());
-	 * dsl.setDslTillDate(advocateDto.getTillDate());
-	 * dsl.setDslSendBy(user.getUm_id());
-	 * dsl.setDslCaseType(advocateDto.getCaseType());
-	 * dsl.setDslCaseNo(advocateDto.getCaseNo()); dsl.setSmsText(smstext);
-	 * dsl.setDslSmsStatus(true); try {
-	 * dsl.setDslCaseYear(Integer.parseInt(advocateDto.getCaseYear())); } catch
-	 * (NumberFormatException e) { throw new
-	 * IllegalArgumentException("Invalid case year: " + advocateDto.getCaseYear());
-	 * }
-	 * 
-	 * DecreeSmsLog dslResult=sendSmsService.saveDecreeSmsLog(dsl); return
-	 * otpresponse; }else if(otpresponse.equals("0")) {
-	 * 
-	 * return otpresponse; } else { return null; }
-	 * 
-	 * }
-	 * 
-	 * // ***************************** ************************************** Vijay
-	 * Chaurasiya Java Developer *************************************************
-	 * 
-	 * @RequestMapping(value = "/sendAdvAllSms", method = RequestMethod.POST)
-	 * 
-	 * @ResponseBody public Map<String, Object> sendSmsToAllAdv(
-	 * 
-	 * @RequestBody List<AdvocateDTO> advList, HttpSession session) {
-	 * 
-	 * Map<String, Object> response = new HashMap<>(); Map<String, String>
-	 * smsStatusMap = new LinkedHashMap<>();
-	 * 
-	 * User user = (User) session.getAttribute("USER"); if (user == null) {
-	 * response.put("status", "SESSION_EXPIRED"); response.put("message",
-	 * "User session expired. Please login again."); return response; }
-	 * 
-	 * 
-	 * AdvocateDTO advocateDto = advList.get(0);
-	 * 
-	 * String caseType = advocateDto.getCaseType(); String
-	 * caseNo=advocateDto.getCaseNo(); String caseYear = advocateDto.getCaseYear();
-	 * 
-	 * 
-	 * // Date date = advocateDto.getTillDate();
-	 * 
-	 * // LocalDate localDate = date.toInstant() .atZone(ZoneId.systemDefault()) //
-	 * .toLocalDate();
-	 * 
-	 * // String tillDate = //
-	 * localDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-	 * 
-	 * 
-	 * 
-	 * Date date = advocateDto.getTillDate();
-	 * 
-	 * SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy"); String tillDate =
-	 * sdf.format(date);
-	 * 
-	 * 
-	 * Lookup lookup = lookupService.getLookUpObject("SMS_URL"); String smsUrl =
-	 * lookup.getLk_longname();
-	 * 
-	 * String otpTmpId = "1107177019834490428"; String extraLko = ""; String otp
-	 * ="";
-	 * 
-	 * 
-	 * String smstext="Decree has been drawn up for "+caseType+" No."+caseNo+"/"+
-	 * caseYear+", You are requested to visit Decree Section on or before "
-	 * +tillDate+ ".";
-	 * 
-	 * 
-	 * 
-	 * int successCount = 0; int failureCount = 0;
-	 * 
-	 * for (AdvocateDTO adv : advList) {
-	 * 
-	 * String mobile = adv.getMobile();
-	 * 
-	 * if (mobile == null || mobile.length() != 10) { smsStatusMap.put(mobile,
-	 * "INVALID_MOBILE"); failureCount++; continue; }
-	 * 
-	 * String smsResponse = sendSmsService.sendBSNLSMS( smsUrl, mobile, smstext +
-	 * " -AHC", otpTmpId );
-	 * 
-	 * if ("1".equals(smsResponse)) {
-	 * 
-	 * DecreeSmsLog dsl = new DecreeSmsLog(); dsl.setDslAor(adv.getAor());
-	 * dsl.setDslMobile(mobile); dsl.setDslSendDate(new Date());
-	 * dsl.setDslTillDate(adv.getTillDate()); dsl.setDslSendBy(user.getUm_id());
-	 * dsl.setDslCaseType(adv.getCaseType()); dsl.setDslCaseNo(adv.getCaseNo());
-	 * 
-	 * try { dsl.setDslCaseYear(Integer.parseInt(adv.getCaseYear())); } catch
-	 * (NumberFormatException e) { throw new
-	 * IllegalArgumentException("Invalid case year: " + advocateDto.getCaseYear());
-	 * }
-	 * 
-	 * dsl.setSmsText(smstext); dsl.setDslSmsStatus(true);
-	 * 
-	 * sendSmsService.saveDecreeSmsLog(dsl);
-	 * 
-	 * smsStatusMap.put(mobile, "SUCCESS"); successCount++;
-	 * 
-	 * } else { smsStatusMap.put(mobile, "FAILED"); failureCount++; } }
-	 * 
-	 * response.put("status", "COMPLETED"); response.put("successCount",
-	 * successCount); response.put("failureCount", failureCount);
-	 * response.put("details", smsStatusMap);
-	 * 
-	 * return response; }
-	 * 
-	 * @RequestMapping(value = "/sent", consumes = "application/json", method =
-	 * RequestMethod.POST)
-	 * 
-	 * @ResponseBody public List<DecreeSmsLog> getSentSmsByCaseDetails(
-	 * 
-	 * @RequestBody CaseRequestDTO request) {
-	 * 
-	 * String hello="vijay";
-	 * 
-	 * return sendSmsService.getSentSmsByCaseDetails( request.getCaseType(),
-	 * request.getCaseNo(), Integer.parseInt(request.getCaseYear())); }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
+	
 	
 	@Autowired
 	ServletContext context;
@@ -331,61 +145,61 @@ public class SmsController {
 	        @RequestBody List<AdvocateDTO> advList,
 	        HttpSession session) {
 
-	    Map<String, Object> response = new HashMap<>();
-	    Map<String, String> smsStatusMap = new LinkedHashMap<>();
+	    Map<String, Object> response = new HashMap<String, Object>();
+	    Map<String, String> smsStatusMap = new LinkedHashMap<String, String>();
 
+	    // Session check
 	    User user = (User) session.getAttribute("USER");
 	    if (user == null) {
 	        response.put("status", "SESSION_EXPIRED");
 	        response.put("message", "User session expired. Please login again.");
 	        return response;
 	    }
-	    
-	    
-	    AdvocateDTO advocateDto = advList.get(0);
 
-	    String caseType = advocateDto.getCaseType();
-	    String caseNo=advocateDto.getCaseNo();
-	    String caseYear = advocateDto.getCaseYear();
+	    //  Validate list
+	    if (advList == null || advList.isEmpty()) {
+	        response.put("status", "NO_DATA");
+	        response.put("message", "Advocate list is empty.");
+	        return response;
+	    }
+
+	    AdvocateDTO firstAdv = advList.get(0);
+
+	    String caseType = firstAdv.getCaseType();
+	    String caseNo = firstAdv.getCaseNo();
+	    String caseYear = firstAdv.getCaseYear();
+
+	    // Date formatting (Java 1.7)
 	    String tillDate = "";
-		Date date = advocateDto.getTillDate();
+	    Date date = firstAdv.getTillDate();
+	    if (date != null) {
+	        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	        tillDate = sdf.format(date);
+	    } else {
+	        tillDate = "N/A";
+	    }
 
-		/*
-		 * LocalDate localDate = date.toInstant() .atZone(ZoneId.systemDefault())
-		 * .toLocalDate();
-		 * 
-		 * String tillDate =
-		 * localDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-		 */
-		if (date != null) {
-		    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-		    tillDate = sdf.format(date);
-		} else {
-		    tillDate = "N/A"; // or handle error
-		}
-
-	    
-
+	    //  SMS config
 	    Lookup lookup = lookupService.getLookUpObject("SMS_URL");
 	    String smsUrl = lookup.getLk_longname();
 
-	    String otpTmpId =  "1107177019834490428";
-	    String extraLko = "";
-	    String otp ="";
+	    String otpTmpId = "1107177019834490428";
 
-	    
-		String smstext="Decree has been drawn up for "+caseType+" No."+caseNo+"/"+caseYear+", You are requested to visit Decree Section on or before "+tillDate+ ".";
-
-		
+	    String smstext = "Decree has been drawn up for "
+	            + caseType + " No." + caseNo + "/" + caseYear
+	            + ", You are requested to visit Decree Section on or before "
+	            + tillDate + ".";
 
 	    int successCount = 0;
 	    int failureCount = 0;
 
+	    //  Loop all advocates
 	    for (AdvocateDTO adv : advList) {
 
 	        String mobile = adv.getMobile();
 
-	        if (mobile == null || mobile.length() != 10) {
+	        //  Mobile validation
+	        if (mobile == null || mobile.trim().length() != 10) {
 	            smsStatusMap.put(mobile, "INVALID_MOBILE");
 	            failureCount++;
 	            continue;
@@ -406,17 +220,18 @@ public class SmsController {
 	            dsl.setDslSendDate(new Date());
 	            dsl.setDslTillDate(adv.getTillDate());
 	            dsl.setDslSendBy(user.getUm_id());
-	        	dsl.setDslCaseType(adv.getCaseType());
-				dsl.setDslCaseNo(adv.getCaseNo());
-				
-				try {
-				    dsl.setDslCaseYear(Integer.parseInt(adv.getCaseYear()));
-				} catch (NumberFormatException e) {
-				    throw new IllegalArgumentException("Invalid case year: " + advocateDto.getCaseYear());
-				}
-				
-				dsl.setSmsText(smstext);
-				dsl.setDslSmsStatus(true);
+	            dsl.setDslCaseType(adv.getCaseType());
+	            dsl.setDslCaseNo(adv.getCaseNo());
+	            dsl.setSmsText(smstext);
+	            dsl.setDslSmsStatus(true);
+
+	            try {
+	                dsl.setDslCaseYear(Integer.parseInt(adv.getCaseYear()));
+	            } catch (NumberFormatException e) {
+	                smsStatusMap.put(mobile, "INVALID_CASE_YEAR");
+	                failureCount++;
+	                continue; //  skip instead of throwing exception
+	            }
 
 	            sendSmsService.saveDecreeSmsLog(dsl);
 
@@ -429,6 +244,7 @@ public class SmsController {
 	        }
 	    }
 
+	    //  Final response
 	    response.put("status", "COMPLETED");
 	    response.put("successCount", successCount);
 	    response.put("failureCount", failureCount);
@@ -436,7 +252,6 @@ public class SmsController {
 
 	    return response;
 	}
-	
 	
 
 	

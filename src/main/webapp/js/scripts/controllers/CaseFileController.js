@@ -1605,12 +1605,52 @@ $scope.response=[];
 
 	//
 	/*END*/
+	
+	
+	
+	
+	
 
 	$scope.genrateDecree = function(id) {
 
+	    $http.get(urlBase + "notice/getDecreeForm/" + id)
+	        .then(function(response) {
+
+	            var data = response?.data?.modelData;
+	            var rec = data?.df_rec_status;
+	            var userName = data?.crBy.um_fullname || "Unknown User";
+
+	            if (rec == 1) {
+	                alert("This case is already created by " + userName + "!");
+	            }
+
+	            // Always generate decree (after alert if shown)
+	            window.open(urlBase + "casefile/genrateDecree/" + id, "_blank");
+
+	        }, function(error) {
+	            alert("Something went wrong!");
+	        });
+
+	};
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/*$scope.genrateDecree = function(id) {
+		
+		
+		
+
 		window.open(urlBase + "casefile/genrateDecree/" + id, "_blank");
 
-	}
+	}*/
 
 
 	

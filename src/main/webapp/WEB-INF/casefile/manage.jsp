@@ -1,5 +1,112 @@
 <%@ include file="../content/header2.jsp"%>
     <html>
+    
+    <style>
+.animated-btn {
+	animation: pulse 1.5s infinite;
+}
+
+@
+keyframes pulse { 0% {
+	transform: scale(1);
+} 50% {
+transform:scale(1.08);
+}100% {
+transform:scale(1);
+}
+}
+/* spacing */
+.mb-3 {
+	margin-bottom: 15px;
+}
+
+/* input focus effect */
+.form-control:focus {
+	border-color: #007bff;
+	box-shadow: none;
+}
+
+/* modal smooth look */
+.modal-content {
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+/* label styling */
+label {
+	font-size: 13px;
+	margin-bottom: 5px;
+}
+
+/* ===== TABLE DESIGN ===== */
+.table {
+	border-radius: 8px;
+	overflow: hidden;
+	background: #fff;
+}
+
+.table thead {
+	background: background: linear-gradient(45deg, #6fb1fc, #d0e6ff);;
+	color: #fff;
+}
+
+.table thead th {
+	border: none !important;
+	font-weight: 600;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.table tbody td {
+	vertical-align: middle !important;
+	text-align: center;
+}
+
+/* Hover effect */
+.table-hover tbody tr:hover {
+	background-color: #f2f7ff;
+	transition: 0.3s;
+}
+
+/* Zebra improvement */
+.table-striped tbody tr:nth-of-type(odd) {
+	background-color: #f9fbff;
+}
+
+/* Inputs inside table */
+.table input {
+	border-radius: 6px;
+	border: 1px solid #ced4da;
+	padding: 4px 8px;
+}
+
+/* Buttons */
+.btn-sm {
+	border-radius: 20px;
+	padding: 5px 12px;
+	font-size: 12px;
+}
+
+/* Section card */
+.custom-card {
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	margin-bottom: 20px;
+}
+
+.custom-header {
+	background: linear-gradient(45deg, #007bff, #004085);
+	color: #fff;
+	padding: 10px;
+	font-weight: 600;
+	text-align: center;
+	border-radius: 10px 10px 0 0;
+}
+</style>
+    
+    
+    
+    
 
     <body>
         <div id="content" class="content">
