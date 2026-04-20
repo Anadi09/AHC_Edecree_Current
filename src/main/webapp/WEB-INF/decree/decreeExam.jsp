@@ -43,14 +43,13 @@ String role=user.getUserroles().get(0).getLk().getLk_longname();
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr  ng-repeat="row in decreeExaminer" class="odd gradeX" ng-hide = "row.df_rec_status==0">
+                                        <tr  ng-repeat="row in decreeExaminer" class="odd gradeX" >
                                         	<td>{{$index+1}}</td>
-                                        	 <td>{{row.caseFileDetail.caseType.ct_label}}</td>
-                                             <td>{{row.caseFileDetail.fd_case_no}} </td>
-                                              
-                                             <td>{{row.caseFileDetail.fd_case_year}}</td>     
-                                             <td style="color: rgb(0, 120, 255);">{{row.df_remark}}</td>                                     
-                                             <td>{{row.df_cr_date | date:"dd/MM/yyyy HH:mm:ss"}}</td>
+                                        	<td>{{row.ct_label}}</td>
+<td>{{row.fd_case_no}}</td>
+<td>{{row.fd_case_year}}</td>
+<td>{{row.df_remark}}</td>
+<td>{{row.df_cr_date | date:"dd/MM/yyyy HH:mm:ss"}}</td>
                                              <td><button class="btn btn-sm btn-primary "   style="border-radius: 20px; padding: 5px 12px; font-size: 12px;"   ng-click="genrateDecree(row.df_fd_mid)">Preview</button></td>
                                              <!-- <td><button class="btn btn-success" ng-click="digitalSign(row.df_fd_mid)">Digital Sign</button></td> -->
                                           </tr>

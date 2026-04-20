@@ -716,6 +716,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		  $scope.decreeForm.df_2nd_div=document.getElementById('target2').innerHTML ;
 		  $scope.decreeForm.df_3rd_div=document.getElementById('target3').innerHTML;
 		  $scope.decreeForm.df_4th_div=document.getElementById('target4').innerHTML;
+		  $scope.decreeForm.df_5th_div=document.getElementById('target5').innerHTML;
 		  $scope.decreeForm.df_editor=$("#txtEditor2").Editor("getText");
 		  
 		 
@@ -727,6 +728,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 			  $scope.decreeForm.df_2nd_div=document.getElementById('target21').innerHTML ;
 			  $scope.decreeForm.df_3rd_div=document.getElementById('target31').innerHTML;
 			  $scope.decreeForm.df_4th_div=document.getElementById('target41').innerHTML;
+			  $scope.decreeForm.df_5th_div=document.getElementById('target51').innerHTML;
 			 // $scope.decreeForm.df_stage_lid=$scope.decreeForm.df_stage_lid+1;
 			  $scope.decreeForm.df_editor=$("#txtEditor1").Editor("getText");
 		  }
@@ -789,20 +791,20 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 	  $scope.downloadDecree=function(){
 		  
 		  window.open(urlBase+'notice/downloadDecree/'+$scope.doc_id,'_self');
-		 /* $http.post(urlBase+'notice/downloadDecree',$scope.decreeForm).success(function (data) {
-		    	if(data.response=="TRUE"){
-		    		console.log("data daaaaaa",data);
-		    	}
-		    	else
-		    		{
-		    		console.log("Some problem")
-		    		}
-		    		
-		      }).
-		      error(function(data, status, headers, config) {
-		      	console.log("Error in getting tree data");
-		      });*/
+		
 	  }
+	  
+	  $scope.generateDoc=function()
+	  		 {
+	  			
+	  			window.open(urlBase+'notice/downloadDecreeDoc/'+$scope.doc_id,'_self');
+	  			
+	  			
+	  			
+	  		 }	
+	  
+	  
+	  
 	  
 	 /* Add downlad pdf js* =========== 1st method */
 	 
