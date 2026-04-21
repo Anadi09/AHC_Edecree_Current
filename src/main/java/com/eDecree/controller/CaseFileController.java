@@ -444,6 +444,30 @@ public class CaseFileController {
 	
 	}
 	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/createDecreeNotice/{fdId}", method = RequestMethod.GET)
+	public String createDecreeNotice(@PathVariable("fdId") Long fdId, Model model) {
+	    
+	    System.out.println("fdId = " + fdId);
+	    
+	   CaseFileDetail caseFileData= caseFileDetailService.getCaseFileDetail(fdId);
+	   
+	  
+	   
+	   System.out.println("caseFileData = " + caseFileData);
+	   
+	   model.addAttribute("caseFileData", caseFileData);
+	    
+	    return "/casefile/createDecreeNotice";
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/updatereportdata", method = RequestMethod.POST)
 	public @ResponseBody String updatereportdata(@RequestBody OrderReport officeRpt,HttpSession session) throws DocumentException {
 		ActionResponse<OrderReport> response = new ActionResponse<OrderReport>();

@@ -1610,6 +1610,21 @@ $scope.response=[];
 	
 	
 	
+	
+	$scope.createNotice=function(fdId){
+			console.log("fdId---"+fdId);
+			window.open(urlBase + "casefile/createDecreeNotice/" + fdId, "_blank");
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	$scope.genrateDecree = function(id) {
 
