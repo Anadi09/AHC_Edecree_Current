@@ -639,7 +639,16 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 	  $scope.showButton = false;
 	  function getDecreeForm(){
 		  $http.get(urlBase+'notice/getDecreeForm/'+$scope.doc_id).success(function (data) {
-			  $scope.decreeForm=data.modelData;	
+			if (!$scope.decreeForm || !$scope.decreeForm.df_id) {
+			    // first time load
+			    $scope.decreeForm = data.modelData;
+			} else {
+			    // preserve ID and merge data
+			    $scope.decreeForm = {
+			        ...data.modelData,
+			        df_id: $scope.decreeForm.df_id
+			    };
+			}
 			  $scope.decreeStage=data.decreeStage;
 			  /*for (var i = 0; i < $scope.decreeStage.length; i++) {
 			      console.log($scope.decreeStage[i].ds_stage_lid);
@@ -733,20 +742,21 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 			  $scope.decreeForm.df_editor=$("#txtEditor1").Editor("getText");
 		  }
 		  
-		  
-		  $http.post(urlBase+'notice/saveDecreeForm',$scope.decreeForm).success(function (data) {
-		    	if(data.response=="TRUE"){
-		    		console.log("data daaaaaa",data);
-		    		alert("Decree saved successfully");
-		    		getDecreeForm();
-		    	}
-		    	else
-		    		{
-		    		console.log("Some problem")
-		    		}
-		    		
-		      }).
-		      error(function(data, status, headers, config) {
+		  console.log("Before save ID:", $scope.decreeForm.df_id);
+		  $http.post(urlBase+'notice/saveDecreeForm', $scope.decreeForm)
+		  .success(function (data) {
+		      if (data.response == "TRUE") {
+
+		          alert("Decree saved successfully");
+
+		          // ✅ correct assignment
+		          $scope.decreeForm = data.modelData;
+
+		          console.log("Saved ID:", $scope.decreeForm.df_id);
+
+		          getDecreeForm(); // keep this
+		      }
+		  }).error(function(data, status, headers, config) {
 		      	console.log("Error in getting tree data");
 		      });
 		  
@@ -988,7 +998,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		
 	  }
 	  
-	  
+	  $scope.hideUploadBtn=false;
 	  $scope.returnToDecreeWriter =function(decreeForm){
 			console.log("case detailssssssssssss",decreeForm);
 			df_id=decreeForm.df_id;
@@ -1012,10 +1022,13 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		    				
 		    				//alert("FILE RETURN TO DECREE WRITER ...");
 		    				alert(data.data);
-		    				
-		    				setTimeout(function(){
-		    				    location.reload();
-		    				}, 1000); // 3000 milliseconds = 3 seconds
+							$scope.hideUploadBtn = true;
+
+							   console.log("hideUploadBtn:", $scope.hideUploadBtn);
+
+							   $scope.$applyAsync();   // ensure UI updates
+
+							   getDecreeForm();  //3000 milliseconds = 3 seconds
 		    				
 		    			         
 		    			}).error(function(data, status, headers, config) {

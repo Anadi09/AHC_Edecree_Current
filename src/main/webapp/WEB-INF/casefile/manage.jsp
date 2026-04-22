@@ -185,10 +185,10 @@ label {
                                                     
                                                      <% if(role.equals("DECREE CREATOR")) {%>
                                                      
-                                                      <button class="btn btn-primary btn-sm" ng-click="createNotice(row.fd_id)">Create Notice</button>
+                                                      <!-- <button class="btn btn-primary btn-sm" ng-click="createNotice(row.fd_id)">Create Notice</button> -->
                                                             <button class="btn btn-success btn-sm" ng-click="viewCaseFile(row.fd_id)">View</button>
                                                              <button class="btn btn-success btn-sm" ng-click="genrateDecree(row.fd_id)">Generate Decree</button>
-                                                               <button class="btn btn-primary btn-sm" ng-click="genrateDecreef1(row.fd_id)">View Doc</button>
+                                                             <!--   <button class="btn btn-primary btn-sm" ng-click="genrateDecreef1(row.fd_id)">View Doc</button> -->
                                                             <% }%>
 
                                                         <% if(role.equals("Review_Officer") || role.equals("Assistant Review Officer")) {%>

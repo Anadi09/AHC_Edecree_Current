@@ -1135,7 +1135,10 @@ public class NoticeController {
 			decreeForm.setDf_assign_to(user.getUm_id());
 		}
 		
-										
+		
+	    	if (decreeForm.getDf_id() == null) {
+		        throw new RuntimeException("Invalid request: ID required for update");
+		     }			
 					DecreeForm mapping = noticeService.saveDecree(decreeForm);
 					
 					DecreeStage ds=new DecreeStage();

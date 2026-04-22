@@ -651,7 +651,7 @@
 										%>
 
 										<div
-											ng-show="decreeForm.df_stage_lid==4000 && decreeForm.df_file_name==null">
+											ng-show="decreeForm.df_stage_lid==4000 && decreeForm.df_file_name==null&& !hideUploadBtn">
 											<label for="file">File<span class="star">*</span></label> <input
 												type="file" style="color: red;" ngf-select
 												ng-model="picFile" name="file">
@@ -683,7 +683,7 @@
 										<button
 											ng-show="(decreeForm.df_stage_lid==4002 || decreeForm.df_stage_lid==4004 || decreeForm.df_stage_lid==4006) 
 										&& decreeForm.df_assign_to == <%=user.getUm_id()%>"
-											class="btn btn-primary" data-toggle="modal"
+											class="btn btn-primary btn-sm" data-toggle="modal"
 											data-target="#returntodecree">Return Remark</button>
 
 
