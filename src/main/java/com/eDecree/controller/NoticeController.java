@@ -706,11 +706,21 @@ public class NoticeController {
 			htmlWorker.parse(new StringReader(""+officeRpt.getDf_4th_div()));
 			
 			
+			User assignTo =userService.getByuserid(officeRpt.getDf_assign_to());
+		
+			
 		//==================================================end==========================	
 			/*doc.add(Chunk.NEWLINE);*/
 			 Font f=new Font(FontFamily.TIMES_ROMAN,7.0f);
 			Paragraph pDr = new Paragraph((String) (officeRpt.getDf_aprrove_by()==null ? "" : officeRpt.getAprBy().getUm_fullname()),f);
 			pDr.setAlignment(Element.ALIGN_RIGHT);
+			
+			if(officeRpt.getDf_stage_lid()==4008) {
+				pDr.add(assignTo.getUm_fullname());
+				
+				
+			}
+		
 			pDr.add("\n");
 			pDr.add("*Deputy Registrar \n Allahabad/Lucknow \n");
 			/*pDr.add("\n");*/
@@ -991,23 +1001,102 @@ public class NoticeController {
 
 	    try {
 	        DecreeForm officeRpt = noticeService.getDecreeForm(caseFileId);
+	        
+	        
+	    	User examBy=userService.getByuserid(officeRpt.getDf_exam_by());
+			User examBy2 =userService.getByuserid(officeRpt.getDf_exam2_by());
+			User examBy3 =userService.getByuserid(officeRpt.getDf_exam3_by());
+			
+			User approveBy=userService.getByuserid(officeRpt.getDf_aprrove_by());
+			
+			User assignTo=userService.getByuserid(officeRpt.getDf_assign_to());
+	        
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			
+			String examDate = "";
+			if (officeRpt.getDf_exam_date() != null) {
+			    examDate = sdf.format(officeRpt.getDf_exam_date());
+			}
+			
+			
+			String assignHtml = "";
+
+			if (officeRpt.getDf_stage_lid() != null && officeRpt.getDf_stage_lid() == 4008) {
+			    if (assignTo != null) {
+			        assignHtml = "<h6>" + assignTo.getUm_fullname() + "</h6>";
+			    }
+			}
+			
+			
+	        
+	        System.out.println("Office Report: " + officeRpt.getDf_5th_div());
 
 	        String html = "<html>" +
 	                "<head><meta charset='UTF-8'></head>" +
 	                "<body>" +
+
 	                officeRpt.getDf_first_div() + "<br><br>" +
 	                officeRpt.getDf_2nd_div() + "<br><br>" +
 	                officeRpt.getDf_editor() + "<br><br>" +
 	                officeRpt.getDf_3rd_div() + "<br><br>" +
 	                officeRpt.getDf_4th_div() + "<br><br>" +
-	                officeRpt.getDf_5th_div() + "<br><br>" +
+
+	                // 🔥 LEFT + RIGHT using TABLE (best for Word)
+	                "<table style='width:100%;'>" +
+	                "<tr>" +
+
+	                // LEFT SIDE
+	                "<td style='width:50%; vertical-align:top;'>" +
+	                "<h6>" +
+	                "Prepared By <br> Decree-Writer : decree1 <br> Date :25-04-2026 <br><br>" +
+
+	                "Examined By <br> Decree-Writer : " +
+	                (examBy != null ? examBy.getUm_fullname() : "") +
+	                "<br> Date : " + examDate +
+	                "</h6>" +
+
+	                "<h6>" +
+	                "<span>*Not signed by the Advocates for <br>" +
+	                "appellant and respondent <br>though served.<br>" +
+	                "Decree-Writer <br> Date</span>" +
+	                "</h6>" +
+	                "</td>" +
+
+	                // RIGHT SIDE
+	                "<td style='width:50%; vertical-align:top; text-align:right;'>" +
+	                assignHtml +
+	                
+	                "<h6>*Deputy Registrar</h6>" +
+	                "<h6>Allahabad/Lucknow</h6>" +
+
+	                (assignTo != null
+	                        ? "<h6>" + assignTo.getUm_fullname() + "</h6>"
+	                        : "") +
+
+	                "<h6>*(The Deputy Registrar shall give below his<br>" +
+	                "signature the date on which he actually<br> signs the decree)</h6>" +
+
+	                "<h6>Advocate for appellant <br>Date</h6>" +
+	                "<h6>Advocate for respondent <br>Date</h6>" +
+
+	                "</td>" +
+
+	                "</tr>" +
+	                "</table>" +
+
+	                // FOOTER LINE
+	                "<div style='width: 100%; padding-top: 10px'>" +
+	                "<hr>" +
+	                "<h5>* To be scored out when the Advocates have put their signatures.</h5>" +
+	                "</div>" +
+
 	                "</body></html>";
 
-	        // 🔥 IMPORTANT: Set response headers
+	        //  IMPORTANT: Set response headers
 	        response.setContentType("application/msword");
 	        response.setHeader("Content-Disposition", "attachment; filename=eDecree_doc_for_hindi.doc");
 
-	        // 🔥 Write to browser instead of file
+	        //  Write to browser instead of file
 	        response.getOutputStream().write(html.getBytes("UTF-8"));
 	        response.getOutputStream().flush();
 
@@ -1092,6 +1181,7 @@ public class NoticeController {
 			decreeForm.setDf_cr_date(new Date());
 			decreeForm.setDf_assign_to(user.getUm_id());	
 			decreeForm.setDf_rec_status(1);
+			
 			/*String s=decreeForm.getDf_4th_div().replace("Prepared By  <br/>  Decree-Writer  <br/> Date", "Prepared By :"+user.getUm_fullname()+"  <br/>  Decree-Writer  <br/> Date"+new Date());*/
 			//String b=decreeForm.getDf_4th_div().matches("(?i).*Prepared By  <br/>  Decree-Writer  <br/> Date.*");
 			if(decreeForm.getDf_4th_div().matches("(?i).*Prepared By  <br/>  Decree-Writer  <br/> Date.*")) {
@@ -1136,9 +1226,10 @@ public class NoticeController {
 		}
 		
 		
-	    	if (decreeForm.getDf_id() == null) {
-		        throw new RuntimeException("Invalid request: ID required for update");
-		     }			
+		/*
+		 * if (decreeForm.getDf_id() == null) { throw new
+		 * RuntimeException("Invalid request: ID required for update"); }
+		 */			
 					DecreeForm mapping = noticeService.saveDecree(decreeForm);
 					
 					DecreeStage ds=new DecreeStage();
@@ -1668,7 +1759,7 @@ public class NoticeController {
 		
 		df1=noticeService.getDecreeFile(Long.parseLong(file_id));
 		
-DecreeForm df= new DecreeForm();
+        DecreeForm df= new DecreeForm();
 		
 		df=noticeService.getDecreeForm(df1.getDfu_fd_mid());
 		

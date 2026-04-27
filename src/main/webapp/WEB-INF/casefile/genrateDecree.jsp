@@ -77,7 +77,7 @@
 										<div contenteditable="false">
 											<textarea id="txtEditor1" name="abc"
 												ng-model="TemplateDescription"
-												placeholder="Please Don't Use Special Characters"></textarea>
+												placeholder="Please Don't Use Special Characters" style="text-align:justify;"></textarea>
 										</div>
 									</div>
 									<div contenteditable="true"
@@ -254,7 +254,7 @@
 										<div charset="UTF-8" style="page-break-after: always;">
 											<textarea id="txtEditor2" name="abc" align="justify"
 												ng-paste="cleanPaste($event)" ng-model="TemplateDescription"
-												placeholder="Please Don't Use Special Characters"></textarea>
+												placeholder="Please Don't Use Special Characters" style="text-align:justify;"></textarea>
 
 										</div>
 
@@ -641,6 +641,7 @@
 											ng-repeat="data in decreeForm.decreeFileUploaded"
 											ng-hide="decreeForm.df_locked==true"> <a href=""
 											ng-click="preview(data.dfu_id)">{{data.dfu_file_name}}</a>
+											
 											<button class="btn btn-primary btn-sm"
 												ng-click="deleteFile(data.dfu_id)">Delete</button> <br />
 
@@ -783,6 +784,7 @@
 											class="star">*</span></label> <input type="file" ngf-select
 											ng-model="picFile" name="file">
 										<button class="btn btn-primary btn-sm" ng-click="uploadFile()">Upload</button>
+								<!-- 		<button class="btn btn-primary btn-sm" ng-click="preview(picFile)">Preview</button> -->
 										<button class="btn btn-primary btn-sm"
 											ng-click="downloadDecree()">download</button>
 									</div>
@@ -801,7 +803,7 @@
 											Decree already generated. </b></span>
 									<!-- <button ng-show="decreeForm.df_stage_lid!==null" class="btn btn-primary btn-sm" ng-click="downloadDecree()">Preview</button> -->
 
-									<button ng-show="decreeForm.df_stage_lid !==4008  "
+									<button 
 										class="btn btn-primary btn-sm" ng-click="generateDoc()">Download
 										Doc File only for Hindi</button>
 
