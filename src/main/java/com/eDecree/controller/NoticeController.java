@@ -1046,7 +1046,7 @@ public class NoticeController {
 
 			if (officeRpt.getDf_stage_lid() != null && officeRpt.getDf_stage_lid() == 4008) {
 			    if (assignTo != null) {
-			        assignHtml = "<h6 style=\\\"margin:0; line-height:14px;\\\" >" + assignTo.getUm_fullname() + "</h6>";
+			        assignHtml = "<h6 style='margin:0; line-height:14px;'>" + assignTo.getUm_fullname() + "</h6>";
 			    }
 			}
 			

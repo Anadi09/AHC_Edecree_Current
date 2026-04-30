@@ -1610,20 +1610,12 @@ $scope.response=[];
 	
 	
 	
+/*============================================== Vijay Chaurasiya =====================================================================*/	
 	
 	$scope.createNotice=function(fdId){
 			console.log("fdId---"+fdId);
 			window.open(urlBase + "casefile/createDecreeNotice/" + fdId, "_blank");
 		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 	$scope.genrateDecree = function(id) {
@@ -1654,8 +1646,38 @@ $scope.response=[];
 			window.open(urlBase + "casefile/genrateDecreef1/" + id, "_blank");
 
 		}
+		
+		
+		$scope.selectDoc = function(type, fd_id) {
+
+		    console.log("Selected Type:", type, "File ID:", fd_id);
+
+		    switch(type) {
+
+		        case 'DECREE':
+		            $scope.genrateDecree(fd_id);
+		            break;
+
+		        case 'NOTICE':
+		            $scope.createNotice(fd_id);
+		            break;
+
+		        case 'ORDER':
+		            $scope.genrateDecreef1(fd_id);
+		            break;
+
+		        case 'MISC':
+		            // TODO: implement API
+		            console.log("Misc not implemented yet");
+		            break;
+
+		        default:
+		            console.warn("Unknown type:", type);
+		    }
+		};
+		
 	
-	
+		/*============================================== Vijay Chaurasiya end h =====================================================================*/
 	
 	
 	

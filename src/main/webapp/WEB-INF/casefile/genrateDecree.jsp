@@ -300,7 +300,7 @@
 														
 												
 												</p>
-												<p class="text-center">({{decisionDate}})</p>
+												<p class="text-center">({{date}})</p>
 												</h5>
 											</div>
 
@@ -824,7 +824,7 @@
 										Doc File only for Hindi</button>
 
 									<button
-										ng-show="decreeForm.df_stage_lid !==4008 
+										ng-show="decreeForm.df_stage_lid !==4008 "
 										class="btn btn-primary btn-sm" ng-click="downloadDecree()">Download
 										PDF File only for English</button>
 

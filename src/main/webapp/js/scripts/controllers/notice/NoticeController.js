@@ -275,19 +275,15 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		    /*		$scope.dda1 = new Intl.DateTimeFormat('en', { day: '2-digit' }).format($scope.decisionDate);*/
 					$scope.dye = numberToWords($scope.decisionDate.getFullYear());
 					$scope.dda = dayToOrdinal($scope.decisionDate.getDate());
-					console.log("=======================********"+$scope.decisionDate);
+					console.log("=======================********"+formatDateYMD($scope.decisionDate));
+					$scope.date=formatDateYMD($scope.decisionDate);
 					console.log("======================="+$scope.dda);
 					
 					
 				
 					
 					
-		    		}
-					
-					
-					
-		    		
-		    		
+		    		}	
 		    		
 		    		console.log("dataaaaaaaaaaaaaaaaa",$scope.caseDetailsCIS[0]);
 		    		getPet();
