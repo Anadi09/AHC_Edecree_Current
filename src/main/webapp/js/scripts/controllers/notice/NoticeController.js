@@ -157,12 +157,13 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 			    		
 			    		$scope.ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format($scope.filingDate);
 			    		$scope.mo = new Intl.DateTimeFormat('en', { month: 'long' }).format($scope.filingDate);
-			    		$scope.da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format($scope.filingDate);
+			    		$scope.da = new Intl.DateTimeFormat('en', { day: 'numeric' }).format($scope.filingDate);
 			    		
 			    		
 			    		$scope.dye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format($scope.decisionDate);
 			    		$scope.dmo = new Intl.DateTimeFormat('en', { month: 'long' }).format($scope.decisionDate);
-			    		$scope.dda = new Intl.DateTimeFormat('en', { day: '2-digit' }).format($scope.decisionDate);
+			    		$scope.dda = new Intl.DateTimeFormat('en', { day: 'numeric' }).format($scope.decisionDate);
+						console.log("======================="+dye);
 			    		
 			    		
 			    		
@@ -258,16 +259,33 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		    		
 		    		$scope.filingDate=new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
 		    		$scope.decisionDate=new Date(+dateParts1[2], dateParts1[1] - 1, +dateParts1[0]);
+					
+					
+					/*console.log("filing date", formatDateYMD($scope.decisionDate));*/
 		    		
-		    		$scope.ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format($scope.filingDate);
+		    		/*$scope.ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format($scope.filingDate);*/
 		    		$scope.mo = new Intl.DateTimeFormat('en', { month: 'long' }).format($scope.filingDate);
-		    		$scope.da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format($scope.filingDate);
+		    		/*$scope.da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format($scope.filingDate);*/
+					$scope.ye = numberToWords($scope.filingDate.getFullYear());
+					$scope.da = dayToOrdinal($scope.filingDate.getDate()); // or numberToWords(...)
 		    		
-		    		if($scope.caseDetailsCIS.disposedDate !=""){
-		    		$scope.dye = new Intl.DateTimeFormat('en', { year: '2-digit' }).format($scope.decisionDate);
+		    	if($scope.caseDetailsCIS.disposedDate !=""){
+		    	/*	$scope.dye1 = new Intl.DateTimeFormat('en', { year: '2-digit' }).format($scope.decisionDate);*/
 		    		$scope.dmo = new Intl.DateTimeFormat('en', { month: 'long' }).format($scope.decisionDate);
-		    		$scope.dda = new Intl.DateTimeFormat('en', { day: '2-digit' }).format($scope.decisionDate);
+		    /*		$scope.dda1 = new Intl.DateTimeFormat('en', { day: '2-digit' }).format($scope.decisionDate);*/
+					$scope.dye = numberToWords($scope.decisionDate.getFullYear());
+					$scope.dda = dayToOrdinal($scope.decisionDate.getDate());
+					console.log("=======================********"+$scope.decisionDate);
+					console.log("======================="+$scope.dda);
+					
+					
+				
+					
+					
 		    		}
+					
+					
+					
 		    		
 		    		
 		    		
@@ -284,6 +302,45 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 	  }
 	  
 	  
+	  
+	  // Helper functions to convert numbers to words and days to ordinals
+	  
+	  
+	  
+	  function formatDateYMD(date) {
+	      if (!date || isNaN(date)) return '';
+	      return date.getFullYear() + '-' +
+	             String(date.getMonth() + 1).padStart(2, '0') + '-' +
+	             String(date.getDate()).padStart(2, '0');
+	  }
+	  
+	  
+	  function numberToWords(num) {
+	      const a = ['', 'One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten',
+	                 'Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen',
+	                 'Eighteen','Nineteen'];
+	      const b = ['', '', 'Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+
+	      if (num < 20) return a[num];
+	      if (num < 100) return b[Math.floor(num / 10)] + (num % 10 ? ' ' + a[num % 10] : '');
+	      if (num < 1000) return a[Math.floor(num / 100)] + ' Hundred ' + numberToWords(num % 100);
+	      if (num < 10000)
+	          return a[Math.floor(num / 1000)] + ' Thousand ' + numberToWords(num % 1000);
+
+	      return num;
+	  }
+	  function dayToOrdinal(n) {
+	      const ordinals = [
+	          "", "First","Second","Third","Fourth","Fifth","Sixth","Seventh","Eighth","Ninth","Tenth",
+	          "Eleventh","Twelfth","Thirteenth","Fourteenth","Fifteenth","Sixteenth","Seventeenth",
+	          "Eighteenth","Nineteenth","Twentieth","Twenty First","Twenty Second","Twenty Third",
+	          "Twenty Fourth","Twenty Fifth","Twenty Sixth","Twenty Seventh","Twenty Eighth",
+	          "Twenty Ninth","Thirtieth","Thirty First"
+	      ];
+	      return ordinals[n];
+	  }
+	  
+	  
 	  $scope.deleteFile=function(id){
 		  var result=confirm("Are you really want to delete this record");
 		  if (result) {
@@ -297,6 +354,8 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		  }
 	  }
 	  
+	  
+	  //
 	  
 	 /* $scope.updateForm=function(data){
 		  var result=confirm("Are you really want to update this record");
@@ -387,7 +446,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		
 			console.log("In Upload judgement controller");
 			
-		console.log("fileeeeeeeeeeeeeeeeee",$scope.picFile)
+		    console.log("fileeeeeeeeeeeeeeeeee",$scope.picFile)
 			var str=$scope.picFile.name;
 			 var extn = str.split(".").pop();
 			 extn=extn.toLowerCase();
@@ -407,8 +466,8 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 			       fields:$scope.document,
 	    		   file:file,
 			    });
-	if(file.upload){
-			    file.upload.then(function (response) {
+	               if(file.upload){
+			        file.upload.then(function (response) {
 			    	$scope.buttonDisabled1=false;
 			        if(response.data.response=="TRUE"){
 			        //	$scope.errorlist =null;
@@ -422,9 +481,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 			        	
 			        			alert("Files Uploaded successfully...");
 			        			
-			        			$scope.picFile='';	
-			        			
-			        			
+			        			$scope.picFile='';				
 			        	
 			        }else{
 			        	alert("Some Problem");
@@ -456,6 +513,27 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		      });
 		  }
 	  
+		  
+		  $scope.approvedDecreeList=[];
+		  $scope.getApproveDecreeList = function(){
+		      $http.get(urlBase + 'notice/getApprovedDecreeList')
+		          .then(function (response) {
+		              $scope.approvedDecreeList = response.data.modelData;
+					  console.log("Approved Decree List:", $scope.decreeExaminer);
+		          })
+		          .catch(function () {
+		              console.log("Error in getting decree list");
+		          });
+		  }
+		  
+		  
+		  
+		  $scope.viewApproveDocument = function(id) {
+		      window.open(urlBase + "/notice/previewFile/" + id, '_blank');
+		  }; 
+		  
+		  
+		  
 	  function getPet(){
 		  $http.get(urlBase+'notice/getPet/'+$scope.caseDetailsCIS.caseId).success(function (data) {
 		    		$scope.petitioner=data.data;	
@@ -716,54 +794,76 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 	  }
 	  
 	
-	  $scope.saveForm = function () {		 
-		  if($scope.decreeForm==null){				
-		  $scope.decreeForm={};
-		  $scope.decreeForm.df_fd_mid = $scope.doc_id;
-		  var MyDiv1 = document.getElementById('target1');
-		  $scope.decreeForm.df_first_div=MyDiv1.innerHTML;
-		  $scope.decreeForm.df_2nd_div=document.getElementById('target2').innerHTML ;
-		  $scope.decreeForm.df_3rd_div=document.getElementById('target3').innerHTML;
-		  $scope.decreeForm.df_4th_div=document.getElementById('target4').innerHTML;
-		  $scope.decreeForm.df_5th_div=document.getElementById('target5').innerHTML;
-		  $scope.decreeForm.df_editor=$("#txtEditor2").Editor("getText");
-		  
-		 
-		  }
-		  else{
-			  $scope.decreeForm.df_fd_mid = $scope.doc_id;
-			  var MyDiv1 = document.getElementById('target11');
-			  $scope.decreeForm.df_first_div=MyDiv1.innerHTML;
-			  $scope.decreeForm.df_2nd_div=document.getElementById('target21').innerHTML ;
-			  $scope.decreeForm.df_3rd_div=document.getElementById('target31').innerHTML;
-			  $scope.decreeForm.df_4th_div=document.getElementById('target41').innerHTML;
-			  $scope.decreeForm.df_5th_div=document.getElementById('target51').innerHTML;
-			 // $scope.decreeForm.df_stage_lid=$scope.decreeForm.df_stage_lid+1;
-			  $scope.decreeForm.df_editor=$("#txtEditor1").Editor("getText");
-		  }
-		  
-		  console.log("Before save ID:", $scope.decreeForm.df_id);
-		  $http.post(urlBase+'notice/saveDecreeForm', $scope.decreeForm)
-		  .success(function (data) {
-		      if (data.response == "TRUE") {
+	  $scope.saveForm = function (type) {
 
-		          alert("Decree saved successfully");
+	      if (type == "approve") {
 
-		          // ✅ correct assignment
-		          $scope.decreeForm = data.modelData;
+	          $http.get(urlBase + 'notice/isFinalFilePresent?dfFdMid=' + $scope.doc_id)
+	              .then(function (response) {
 
-		          console.log("Saved ID:", $scope.decreeForm.df_id);
+	                  let isFilePresent = response.data;
+					  console.log("===========================Is final file present for approval?", isFilePresent);
 
-		          getDecreeForm(); // keep this
-		      }
-		  }).error(function(data, status, headers, config) {
-		      	console.log("Error in getting tree data");
-		      });
-		  
-		        $scope.courtList[indx] = angular.copy($scope.editablerow);
-		        $scope.reset();
-	    };
-	    
+	                  if (!isFilePresent) {
+	                      alert("Please upload final file before approval");
+	                      return;
+	                  }
+
+	             
+	                  saveDecree();
+
+	              })
+	              .catch(function () {
+	                  console.log("Error checking file");
+	              });
+
+	      } else {
+	          // normal save
+	          saveDecree();
+	      }
+	  };
+		
+		
+		
+		
+		
+		function saveDecree() {
+
+		    if ($scope.decreeForm == null) {
+		        $scope.decreeForm = {};
+		        $scope.decreeForm.df_fd_mid = $scope.doc_id;
+		        $scope.decreeForm.df_first_div = document.getElementById('target1').innerHTML;
+		        $scope.decreeForm.df_2nd_div = document.getElementById('target2').innerHTML;
+		        $scope.decreeForm.df_3rd_div = document.getElementById('target3').innerHTML;
+		        $scope.decreeForm.df_4th_div = document.getElementById('target4').innerHTML;
+		        $scope.decreeForm.df_5th_div = document.getElementById('target5').innerHTML;
+		        $scope.decreeForm.df_editor = $("#txtEditor2").Editor("getText");
+		    } else {
+		        $scope.decreeForm.df_fd_mid = $scope.doc_id;
+		        $scope.decreeForm.df_first_div = document.getElementById('target11').innerHTML;
+		        $scope.decreeForm.df_2nd_div = document.getElementById('target21').innerHTML;
+		        $scope.decreeForm.df_3rd_div = document.getElementById('target31').innerHTML;
+		        $scope.decreeForm.df_4th_div = document.getElementById('target41').innerHTML;
+		        $scope.decreeForm.df_5th_div = document.getElementById('target51').innerHTML;
+		        $scope.decreeForm.df_editor = $("#txtEditor1").Editor("getText");
+		    }
+
+		    $http.post(urlBase + 'notice/saveDecreeForm', $scope.decreeForm)
+		        .success(function (data) {
+		            if (data.response == "TRUE") {
+		                alert("Decree saved successfully");
+		                $scope.decreeForm = data.modelData;
+		                getDecreeForm();
+		            }
+		        })
+		        .error(function () {
+		            console.log("Error saving decree");
+		        });
+		}
+		
+		
+			
+		
 	    $scope.assign_to=null;
 	    
 	    $scope.nextStage=function(stage){
@@ -813,21 +913,6 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 	  			
 	  		 }	
 			 
-			 
-	  
-	  
-	  
-	  
-
-
-	 
-	 
-	 
-	 
-	 
-	 
-
-	
 	$scope.downloadDecreeJs = function () {
 
 		      let content = document.getElementById("pdfcontent");
@@ -839,7 +924,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 
 		      let clonedContent = content.cloneNode(true);
 
-		      // ✅ Replace textarea with actual text
+		      //  Replace textarea with actual text
 		      clonedContent.querySelectorAll("textarea").forEach(el => {
 		          let div = document.createElement("div");
 		          div.className = "print-text";
@@ -847,15 +932,15 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		          el.replaceWith(div);
 		      });
 
-		      // ✅ Remove unwanted UI
+		      //  Remove unwanted UI
 		      clonedContent.querySelectorAll(".no-print, button, .btn, .fa").forEach(el => el.remove());
 
-		      // ✅ Remove contenteditable (VERY IMPORTANT)
+		      //  Remove contenteditable (VERY IMPORTANT)
 		      clonedContent.querySelectorAll("[contenteditable]").forEach(el => {
 		          el.removeAttribute("contenteditable");
 		      });
 
-		      // ✅ Remove empty editor wrappers
+		      //  Remove empty editor wrappers
 		      clonedContent.querySelectorAll(".editor-content").forEach(el => {
 		          if (!el.innerText.trim()) el.remove();
 		      });
@@ -990,10 +1075,7 @@ EDMSApp.controller('NoticeController',['$scope','$http','$sce','Upload',function
 		           }
 	            	
       });
-		        
-		  
-		  
-		  console.log($("#target").width()+"  "+$("#target").height());
+       console.log($("#target").width()+"  "+$("#target").height());
 		  //$scope.recipient="Sushant";
 		
 	  }

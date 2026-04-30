@@ -30,6 +30,19 @@
 .pre-line {
 	white-space: pre-line;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 </style>
 </head>
 <body>
@@ -219,7 +232,7 @@
 
 
 
-											<h5 style="float: left">the {{jgName[0]}}</h5>
+											<h5 style="float: left">the {{jgName[0]}} J.</h5>
 
 
 											<br /> <br />
@@ -229,7 +242,7 @@
 												{{jgName.length >0 ? jgName[1] : null}} <span
 													ng-show="jgName.length==null">the {{jgName[1]}}</span>
 											</h5>
-											<h5 style="float: right">Judges of this Court</h5>
+											<h5 style="text-align:right">Judges of this Court</h5>
 
 
 											<br /> <br /> <br />
@@ -284,8 +297,11 @@
 													</p>
 													<p>&nbsp; &nbsp; &nbsp; &nbsp; Dated this* {{dda}} day
 														of {{dmo}} in the year two thousand and {{dye}} .
-												</h5>
+														
+												
 												</p>
+												<p class="text-center">({{decisionDate}})</p>
+												</h5>
 											</div>
 
 										</div>
@@ -346,7 +362,7 @@
 															<td style="border-style: ridge;"></td>
 															<td style="border-style: ridge;"></td>
 															<td style="border-style: ridge;"></td>
-															</h6>
+														</h6>
 													</tr>
 													<tr>
 														<td style="border-style: ridge; padding-left: 10px"><b>In
@@ -633,7 +649,7 @@
 										<button
 											ng-show="decreeForm.df_locked==false   
 								&& decreeForm.df_stage_lid==4008 "
-											class="btn btn-primary btn-sm" ng-click="saveForm()">Approve</button>
+											class="btn btn-primary btn-sm" ng-click="saveForm('approve')">Approve</button>
 										<%
 										}
 										%>
@@ -808,7 +824,7 @@
 										Doc File only for Hindi</button>
 
 									<button
-										ng-show="decreeForm.df_stage_lid !==4008 && decreeForm.df_stage_lid !=4000"
+										ng-show="decreeForm.df_stage_lid !==4008 
 										class="btn btn-primary btn-sm" ng-click="downloadDecree()">Download
 										PDF File only for English</button>
 

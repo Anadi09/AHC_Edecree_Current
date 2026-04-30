@@ -1,5 +1,10 @@
 package com.eDecree.controller;
 
+
+
+
+import java.io.OutputStream;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -45,6 +50,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -161,6 +167,16 @@ public class NoticeController {
 
 		return "/decree/getDecreeForApprove";
 	}
+	
+
+	@RequestMapping(value = "/getApproveDecreeList", method = RequestMethod.GET)
+	public String getApprovedDecree() {
+
+		return "/decree/approvedDecreeList";
+	}
+	
+	
+	
 
 	@RequestMapping(value = "/case_notice",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = "application/json")
 	@ResponseBody
@@ -1007,6 +1023,11 @@ public class NoticeController {
 			User examBy2 =userService.getByuserid(officeRpt.getDf_exam2_by());
 			User examBy3 =userService.getByuserid(officeRpt.getDf_exam3_by());
 			
+			User crBY=userService.getByuserid(officeRpt.getCrBy().getUm_id());
+		
+			
+			
+			
 			User approveBy=userService.getByuserid(officeRpt.getDf_aprrove_by());
 			
 			User assignTo=userService.getByuserid(officeRpt.getDf_assign_to());
@@ -1014,8 +1035,10 @@ public class NoticeController {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			
 			String examDate = "";
+			String crDate = "";
 			if (officeRpt.getDf_exam_date() != null) {
 			    examDate = sdf.format(officeRpt.getDf_exam_date());
+			    crDate=sdf.format(	officeRpt.getDf_cr_date());
 			}
 			
 			
@@ -1023,7 +1046,7 @@ public class NoticeController {
 
 			if (officeRpt.getDf_stage_lid() != null && officeRpt.getDf_stage_lid() == 4008) {
 			    if (assignTo != null) {
-			        assignHtml = "<h6>" + assignTo.getUm_fullname() + "</h6>";
+			        assignHtml = "<h6 style=\\\"margin:0; line-height:14px;\\\" >" + assignTo.getUm_fullname() + "</h6>";
 			    }
 			}
 			
@@ -1031,67 +1054,75 @@ public class NoticeController {
 	        
 	        System.out.println("Office Report: " + officeRpt.getDf_5th_div());
 
-	        String html = "<html>" +
-	                "<head><meta charset='UTF-8'></head>" +
-	                "<body>" +
+	        String html =
+	        		"<html>" +
+	        		"<head><meta charset='UTF-8'></head>" +
+	        		"<body>" +
 
-	                officeRpt.getDf_first_div() + "<br><br>" +
-	                officeRpt.getDf_2nd_div() + "<br><br>" +
-	                officeRpt.getDf_editor() + "<br><br>" +
-	                officeRpt.getDf_3rd_div() + "<br><br>" +
-	                officeRpt.getDf_4th_div() + "<br><br>" +
+	        		// MAIN CONTENT
+	        		officeRpt.getDf_first_div() + "<br><br>" +
+	        		officeRpt.getDf_2nd_div() + "<br><br>" +
+	        		officeRpt.getDf_editor() + "<br><br>" +
+	        		officeRpt.getDf_3rd_div() + "<br><br>" +
+	        		officeRpt.getDf_4th_div() + "<br><br>" +
 
-	                // 🔥 LEFT + RIGHT using TABLE (best for Word)
-	                "<table style='width:100%;'>" +
-	                "<tr>" +
+	        		// TABLE START
+	        		"<table style='width:100%;'>" +
+	        		"<tr>" +
 
-	                // LEFT SIDE
-	                "<td style='width:50%; vertical-align:top;'>" +
-	                "<h6>" +
-	                "Prepared By <br> Decree-Writer : decree1 <br> Date :25-04-2026 <br><br>" +
+	        		// ================= LEFT SIDE =================
+	        		"<td style='width:50%; vertical-align:top;'>" +
 
-	                "Examined By <br> Decree-Writer : " +
-	                (examBy != null ? examBy.getUm_fullname() : "") +
-	                "<br> Date : " + examDate +
-	                "</h6>" +
+	        		"<br>" + 	"<br>" +	"<br>" +	"<br>" +	"<br>" + // 👈 THIS is the ONLY reliable spacing in iText
 
-	                "<h6>" +
-	                "<span>*Not signed by the Advocates for <br>" +
-	                "appellant and respondent <br>though served.<br>" +
-	                "Decree-Writer <br> Date</span>" +
-	                "</h6>" +
-	                "</td>" +
+	        		"<h6 style='margin:0; line-height:14px;'>" +
+	        		"Prepared By <br> Decree-Writer : " + crBY.getUm_fullname() + "<br>" +
+	        		"Date : " + crDate + "<br><br>" +
 
-	                // RIGHT SIDE
-	                "<td style='width:50%; vertical-align:top; text-align:right;'>" +
-	                assignHtml +
-	                
-	                "<h6>*Deputy Registrar</h6>" +
-	                "<h6>Allahabad/Lucknow</h6>" +
+	        		"Examined By <br> Decree-Writer : " +
+	        		(examBy != null ? examBy.getUm_fullname() : "") + "<br>" +
+	        		"Date : " + examDate +
+	        		"</h6>" +
 
-	                (assignTo != null
-	                        ? "<h6>" + assignTo.getUm_fullname() + "</h6>"
-	                        : "") +
+	        		"<h6 style='margin:0; line-height:14px;'>" +
+	        		"*Not signed by the Advocates for <br>" +
+	        		"appellant and respondent <br>" +
+	        		"though served.<br>" +
+	        		"Decree-Writer <br>Date" +
+	        		"</h6>" +
 
-	                "<h6>*(The Deputy Registrar shall give below his<br>" +
-	                "signature the date on which he actually<br> signs the decree)</h6>" +
+	        		"</td>" +
 
-	                "<h6>Advocate for appellant <br>Date</h6>" +
-	                "<h6>Advocate for respondent <br>Date</h6>" +
+	        		// ================= RIGHT SIDE =================
+	        		"<td style='width:50%; vertical-align:top; text-align:right;'>" +
 
-	                "</td>" +
+	        		(assignHtml != null ? assignHtml : "") +
 
-	                "</tr>" +
-	                "</table>" +
+	        		"<h6 style='margin:0; line-height:14px;'>" +
+	        		"*Deputy Registrar<br>" +
+	        		"Allahabad/Lucknow<br>" +
+	        		"*(The Deputy Registrar shall give below his<br>" +
+	        		"signature the date on which he actually<br>" +
+	        		"signs the decree)<br><br>" +
 
-	                // FOOTER LINE
-	                "<div style='width: 100%; padding-top: 10px'>" +
-	                "<hr>" +
-	                "<h5>* To be scored out when the Advocates have put their signatures.</h5>" +
-	                "</div>" +
+	        		"Advocate for appellant<br>Date<br><br>" +
+	        		"Advocate for respondent<br>Date" +
+	        		"</h6>" +
 
-	                "</body></html>";
+	        		"</td>" +
 
+	        		"</tr>" +
+	        		"</table>" +
+
+	        		// FOOTER
+	        		"<div style='width:100%; padding-top:10px;'>" +
+	        		"<hr>" +
+	        		"<p style='font-size:11px; margin:0;'>" +
+	        		"* To be scored out when the Advocates have put their signatures." +
+	        		"</p>" +
+	        		"</div>" +
+
+	        		"</body></html>";
 	        //  IMPORTANT: Set response headers
 	        response.setContentType("application/msword");
 	        response.setHeader("Content-Disposition", "attachment; filename=eDecree_doc_for_hindi.doc");
@@ -1107,9 +1138,27 @@ public class NoticeController {
 	
 	
 	
-	// ======================================  Vijay chaurasiya ===================================================	
+
 	
 
+	
+	
+	
+	@RequestMapping(value = "/isFinalFilePresent", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean isFinalFilePresent(@RequestParam("dfFdMid") Long dfFdMid) {
+
+	    return noticeService.isFinalFilePresent(dfFdMid);
+	}
+	
+	
+	// ======================================  Vijay chaurasiya  end===================================================	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -1589,6 +1638,7 @@ public class NoticeController {
 
 	}
 	
+	// ======================================  Vijay chaurasiya  end===================================================	
 	
 	@RequestMapping(value = "/getDecreeExamList", method = RequestMethod.GET)
 	public @ResponseBody ActionResponse<List<DecreeExamDTO>> getDecreeExamList(HttpSession session) {
@@ -1603,6 +1653,64 @@ public class NoticeController {
 
 	    return response;
 	}
+	
+	
+	@RequestMapping(value = "/getApprovedDecreeList", method = RequestMethod.GET)
+	public @ResponseBody ActionResponse<List<DecreeExamDTO>> getApprovedDecreeList(HttpSession session) {
+
+	    User u = (User) session.getAttribute("USER");
+
+	    List<DecreeExamDTO> types = noticeService.getApprovedDecree(u.getUm_id());
+
+	    ActionResponse<List<DecreeExamDTO>> response = new ActionResponse<>();
+	    response.setData("TRUE");
+	    response.setModelData(types);
+
+	    return response;
+	}
+	
+	
+	
+	@RequestMapping(value = "/previewFile/{id}", method = RequestMethod.GET)
+	public void previewFile(@PathVariable("id") Long id, HttpServletResponse response) {
+	    try {
+	        DecreeForm df = noticeService.getDecreeForm(id);
+
+	        // Build file path (same logic as upload)
+	        Lookup lookup = lookupService.getLookUpObject("REPOSITORYPATH");
+	        String basePath = lookup.getLk_longname() + File.separator
+	                + df.getCaseFileDetail().getCaseType().getCt_label()
+	                + File.separator + "Decree" + File.separator;
+
+	        String fileName = df.getDf_final_file() + ".pdf"; // adjust if needed
+	        File file = new File(basePath + fileName);
+
+	        if (file.exists()) {
+	            response.setContentType("application/pdf");
+	            response.setHeader("Content-Disposition", "inline; filename=\"" + fileName + "\"");
+	            
+	            FileInputStream fis = new FileInputStream(file);
+	            OutputStream os = response.getOutputStream();
+
+	            byte[] buffer = new byte[1024];
+	            int len;
+	            while ((len = fis.read(buffer)) != -1) {
+	                os.write(buffer, 0, len);
+	            }
+
+	            fis.close();
+	            os.flush();
+	        } else {
+	            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	
+	
 	
 	@RequestMapping(value = "/getRes/{id}", method = RequestMethod.GET)
 	public @ResponseBody String getRes(@PathVariable("id") String cino) {
@@ -1654,7 +1762,7 @@ public class NoticeController {
 				//SendEmailWithAttachment.sendMail("bilalkhan0408@gmail.com","bilal.khan@nexsussolutions.com" , source);
 
 				SendMail sm =new SendMail();
-				sm.sendMail("sushant", "sushantmishra09@gmail.com","what are you doind","Heloooooo");
+				sm.sendMail("sushant", "sushantmishra09@gmail.com","what are you doing","Heloooooo");
 
 
 				reader.close();
@@ -1745,7 +1853,7 @@ public class NoticeController {
 	
 	
 	
-	
+	// ======================================  Vijay chaurasiya start===================================================	
 	@RequestMapping(value="/previewFile",method=RequestMethod.GET)
 	@ResponseBody
 	public String previewFile(HttpServletRequest request)
@@ -1755,6 +1863,7 @@ public class NoticeController {
 		response.setResponse("TRUE");
 		String file_id=request.getParameter("df_fd_mid");
 		Long pfile=Long.valueOf(file_id);
+		
 		DecreeFileUploaded df1= new DecreeFileUploaded();
 		
 		df1=noticeService.getDecreeFile(Long.parseLong(file_id));
@@ -1794,6 +1903,11 @@ public class NoticeController {
 		jsonData = globalfunction.convert_to_json(response);
 		return jsonData;
 	}
+	
+	// ======================================  Vijay chaurasiya  end===================================================	
+	
+	
+	
 	
 	
 	

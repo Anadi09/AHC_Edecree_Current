@@ -207,10 +207,11 @@ public class NoticeService {
 	                "c.fd_case_no, " +
 	                "c.fd_case_year, " +
 	                "d.df_remark, " +
+	                "d.df_locked, "+
 	                "d.df_cr_date) " +
 	                "FROM DecreeForm d " +
 	                "JOIN d.caseFileDetail c " +
-	                "WHERE d.df_assign_to = :stage  and d.df_rec_status = 1 " ;
+	                "WHERE d.df_assign_to = :stage  and d.df_rec_status = 1 and d.df_locked = false " ;
 
 	        data = em.createQuery(query, DecreeExamDTO.class)
 	                .setParameter("stage", stage)
@@ -222,6 +223,58 @@ public class NoticeService {
 
 	    return data;
 	}
+	
+	
+	
+	//====================== Get Approved Decree list =====================================================
+	@Transactional("transactionManager")
+	public List<DecreeExamDTO> getApprovedDecree(Long stage) {
+
+	    List<DecreeExamDTO> data = new ArrayList<>();
+
+	    try {
+	        String query = "SELECT new com.eDecree.model.DecreeExamDTO(" +
+	                "d.df_fd_mid, " +
+	                "c.caseType.ct_label, " +
+	                "c.fd_case_no, " +
+	                "c.fd_case_year, " +
+	                "d.df_remark, " +
+	                 "d.df_locked, "+
+	                "d.df_cr_date) " +
+	                "FROM DecreeForm d " +
+	                "JOIN d.caseFileDetail c " +
+	                "WHERE d.df_assign_to = :stage  and d.df_rec_status = 1 and d.df_locked = true " ;
+
+	        data = em.createQuery(query, DecreeExamDTO.class)
+	                .setParameter("stage", stage)
+	                .getResultList();
+
+	    } catch (Exception e) {
+	        e.printStackTrace(); //  replace with logger if available
+	    }
+
+	    return data;
+	}
+	
+	
+	@Transactional("transactionManager")
+	public boolean isFinalFilePresent(Long dfFdMid) {
+
+	    String query = "SELECT COUNT(d) > 0 " +
+	                   "FROM DecreeForm d " +
+	                   "WHERE d.df_fd_mid = :id " +
+	                   "AND d.df_rec_status = 1 " +
+	                   "AND d.df_final_file IS NOT NULL";
+
+	    return em.createQuery(query, Boolean.class)
+	             .setParameter("id", dfFdMid)
+	             .getSingleResult();
+	}
+	
+	
+	
+	
+	
 	
 	//================================================== VIJAY CHAURASIYA =======================================================
 	//=============================================================================================================================

@@ -1,6 +1,8 @@
 <jsp:include page="../content/header2.jsp"></jsp:include>
 <%@ page import="com.eDecree.model.User"%>
 
+
+
 <% 
 User user = null;
 if(session.getAttribute("USER")!=null)
@@ -9,6 +11,22 @@ if(session.getAttribute("USER")!=null)
 String role=user.getUserroles().get(0).getLk().getLk_longname();
 
 %>
+<style>
+      
+      .btn-sm {
+	border-radius: 20px;
+	padding: 5px 12px;
+	font-size: 12px;
+}
+
+.inline-block {
+	display: inline-block
+}
+</style>
+    
+    
+    
+    
 <div id="content" class="content">
 	<div class="container-fluid" ng-controller="NoticeController">
 
@@ -43,7 +61,7 @@ String role=user.getUserroles().get(0).getLk().getLk_longname();
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-hide="row.df_locked ==false && row.df_rec_status==0"
+									<tr 
 										ng-repeat="row in decreeExaminer" class="odd gradeX">
 										<td>{{$index+1}}</td>
 										<td>{{row.ct_label}}</td>
@@ -51,13 +69,13 @@ String role=user.getUserroles().get(0).getLk().getLk_longname();
 										<td>{{row.fd_case_year}}</td>
 										<td>{{row.df_remark}}</td>
 										<td>{{row.df_cr_date | date:"dd/MM/yyyy HH:mm:ss"}}</td>
-										<td><button class="btn btn-success rounded-pill btn-sm"
+										<td><button class="btn btn-primary rounded-pill btn-sm"
 												ng-click="genrateDecree(row.df_fd_mid)">Preview</button>
-											<button class="btn btn-success btn-sm rounded-pill"
+											<button class="btn btn-primary btn-sm rounded-pill"
 												ng-click="viewCaseFile(row.df_fd_mid)">View Case
 												File</button>
-											<button class="btn btn-success btn-sm"
-												ng-show="row.df_locked ==false && row.df_rec_status== 1"
+											<button class="btn btn-danger btn-sm"
+												
 												ng-click="deleteDecreeFile(row.df_fd_mid)">Delete</button></td>
 
 										<!-- <td><button class="btn btn-success" ng-click="digitalSign(row.df_fd_mid)">Digital Sign</button></td> -->

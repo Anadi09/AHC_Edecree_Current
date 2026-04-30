@@ -109,7 +109,18 @@ public class DecreeForm {
 	@Column(name="df_approve_date")
 	private Date df_approve_date;
 	
+	@Column(name="df_is_approved")
+	private Boolean isApproved;
 	
+	
+	public Boolean getIsApproved() {
+		return isApproved;
+	}
+
+	public void setIsApproved(Boolean isApproved) {
+		this.isApproved = isApproved;
+	}
+
 	@Column(name="df_stage_lid")
 	private Long df_stage_lid;
 	

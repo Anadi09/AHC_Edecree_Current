@@ -10,25 +10,36 @@ public class DecreeExamDTO {
     private Integer fd_case_year;
     private String df_remark;
     private Date df_cr_date;   // FIXED
+    private boolean df_locked;
 
-    // ONLY ONE CORRECT CONSTRUCTOR
     public DecreeExamDTO(Long df_fd_mid,
-                         String ct_label,
-                         String fd_case_no,
-                         Integer fd_case_year,
-                         String df_remark,
-                         Date df_cr_date) {
-        this.df_fd_mid = df_fd_mid;
-        this.ct_label = ct_label;
-        this.fd_case_no = fd_case_no;
-        this.fd_case_year = fd_case_year;
-        this.df_remark = df_remark;
-        this.df_cr_date = df_cr_date;
-    }
+            String ct_label,
+            String fd_case_no,
+            Integer fd_case_year,
+            String df_remark,
+            boolean df_locked,
+            Date df_cr_date) {
+
+this.df_fd_mid = df_fd_mid;
+this.ct_label = ct_label;
+this.fd_case_no = fd_case_no;
+this.fd_case_year = fd_case_year;
+this.df_remark = df_remark;
+this.df_locked = df_locked;
+this.df_cr_date = df_cr_date;
+}
 
     // getters & setters
 
-    public Long getDf_fd_mid() {
+    public boolean isDf_locked() {
+		return df_locked;
+	}
+
+	public void setDf_locked(boolean df_locked) {
+		this.df_locked = df_locked;
+	}
+
+	public Long getDf_fd_mid() {
         return df_fd_mid;
     }
 
