@@ -1,137 +1,153 @@
-<jsp:include page="../content/header2.jsp"></jsp:include>
-<%@ page import="com.eDecree.model.User"%>
-
-<%
-User user = null;
-if (session.getAttribute("USER") != null)
-	user = (User) session.getAttribute("USER");
-
-String role = user.getUserroles().get(0).getLk().getLk_longname();
-%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
-
-<!-- DataTables CSS -->
-<link rel="stylesheet"
-	href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<%@ include file="../content/header2.jsp"%>
+<html>
 
 <style>
-/* Page background */
-body {
-	background: #f4f6f9;
+.animated-btn {
+	animation: pulse 1.5s infinite;
 }
 
-/* Panel redesign */
-.panel {
-	border-radius: 10px;
-	border: none;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.table-responsive {
+	overflow: visible !important;
 }
 
-.panel-heading {
-	background: linear-gradient(135deg, #4e73df, #224abe);
-	color: white !important;
-	border-radius: 10px 10px 0 0;
-	padding: 15px;
+.panel, .panel-body {
+	overflow: visible !important;
 }
 
-.panel-title {
-	font-size: 14px;
-	font-weight: 600;
+.dropdown-menu {
+	position: absolute !important;
+	z-index: 999999 !important;
 }
 
-/* Table styling */
-#decreeTable {
+@
+keyframes pulse { 0% {
+	transform: scale(1);
+}
+
+50
+%
+{
+transform
+:
+scale(
+1.08
+);
+}
+100
+%
+{
+transform
+:
+scale(
+1
+);
+}
+}
+/* spacing */
+.mb-3 {
+	margin-bottom: 15px;
+}
+
+/* input focus effect */
+.form-control:focus {
+	border-color: #007bff;
+	box-shadow: none;
+}
+
+/* modal smooth look */
+.modal-content {
 	border-radius: 8px;
 	overflow: hidden;
 }
 
-#decreeTable thead {
-	background: #4e73df;
-	color: white;
+/* label styling */
+label {
+	font-size: 13px;
+	margin-bottom: 5px;
 }
 
-#decreeTable th {
+/* ===== TABLE DESIGN ===== */
+.table {
+	border-radius: 8px;
+	overflow: hidden;
+	background: #fff;
+}
+
+.table thead {
+	background: background: linear-gradient(45deg, #6fb1fc, #d0e6ff);;
+	color: #fff;
+}
+
+.table thead th {
+	border: none !important;
+	font-weight: 600;
 	text-align: center;
-	font-weight: 900;
-	color: white;
+	vertical-align: middle;
 }
 
-#decreeTable td {
-	vertical-align: middle;
+.table {
+	border-collapse: separate !important;
+	border-spacing: 0 30px;
+}
+
+.table tbody td {
+	vertical-align: middle !important;
 	text-align: center;
 }
 
 /* Hover effect */
-#decreeTable tbody tr {
-	transition: 0.2s ease;
+.table-hover tbody tr:hover {
+	background-color: #f2f7ff;
+	transition: 0.3s;
 }
 
-#decreeTable tbody tr:hover {
-	background-color: #eef2ff;
-	transform: scale(1.01);
+/* Zebra improvement */
+.table-striped tbody tr:nth-of-type(odd) {
+	background-color: #f9fbff;
 }
 
-/* Serial column highlight */
-#decreeTable td:first-child {
-	font-weight: bold;
-	color: #4e73df;
+/* Inputs inside table */
+.table input {
+	border-radius: 6px;
+	border: 1px solid #ced4da;
+	padding: 4px 8px;
 }
 
-/* Search box styling */
-.dataTables_filter input {
-	border-radius: 20px !important;
-	padding: 6px 12px;
-	border: 1px solid #ccc;
+/* Buttons */
+.btn-sm {
+	border-radius: 20px;
+	padding: 5px 12px;
+	font-size: 12px;
 }
 
-/* Pagination styling */
-.dataTables_wrapper .dataTables_paginate .paginate_button {
-	border-radius: 50% !important;
+/* Section card */
+.custom-card {
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+	margin-bottom: 20px;
 }
 
-/* Subtle animation */
-.panel {
-	animation: fadeIn 0.4s ease-in;
-}
-
-@
-keyframes fadeIn {from { opacity:0;
-	transform: translateY(10px);
-}
-
-to {
-	opacity: 1;
-	transform: translateY(0);
-}
+.custom-header {
+	background: linear-gradient(45deg, #007bff, #004085);
+	color: #fff;
+	padding: 10px;
+	font-weight: 600;
+	text-align: center;
+	border-radius: 10px 10px 0 0;
 }
 </style>
 
 
-<!-- jQuery UI (fix for sortable error) -->
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-
-<!-- DataTables -->
-<script
-	src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-<!-- Your app -->
-<script src="${pageContext.request.contextPath}/assets/js/apps.min.js"></script>
 
 
 
-<!-- ===================================== 	JAVA FULLSTACK DEVELOPER VIJAY CHAURASIYA ================================== -->
+<body>
+	<div id="content" class="content">
+		<div class="container-fluid" ng-controller="CaseFileController"
+			oncontextmenu="return false;">
 
-
-
-<div id="content" class="content">
-	<div class="container-fluid" ng-controller="NoticeController">
-
-
-		<div class="row">
-			<!-- begin col-12 -->
-			<div class="col-md-12">
+			<div class="row">
+				<!-- begin col-12 -->
 				<!-- begin panel -->
 				<div class="panel panel-inverse">
 					<div class="panel-heading">
@@ -140,122 +156,95 @@ to {
 								class="btn btn-xs btn-icon btn-circle btn-default"
 								data-click="panel-expand"><i class="fa fa-expand"></i></a>
 						</div>
-						<h4 class="panel-title">Decree Case Status</h4>
+						<h4 class="panel-title">Decree Case Status </h4>
 					</div>
 					<div class="panel-body">
-
-						<table id="decreeTable" class="table table-bordered table-striped">
-							<thead>
-								<tr class="text-white">
-									<th>Sr. No</th>
-									<th>Case Type</th>
-									<th>Case No</th>
-									<th>Case Year</th>
-									<th>Date</th>
-									<th>User Name</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="row" items="${decreeData}" varStatus="status">
+						<div class="table-responsive">
+							<table id="data-table" st-table="displayedCollection"
+								st-safe-src="masterdata"
+								class="table table-striped table-bordered nowrap table-hover"
+								width="100%">
+								<thead>
 									<tr>
-										<td>${status.index + 1}</td>
 
-										<td><span class="label label-primary">${row[2]}</span></td>
+										<td width="25%"><select class="form-control"
+											ng-model="search.fd_case_type"
+											ng-options="caseType.ct_id as caseType.labelandname for caseType in caseTypes  | orderBy:'ct_label' | filter:{ct_status:1}">
+												<option value="">Select Case Type</option>
+										</select></td>
 
-										<td><strong>${row[3]}</strong></td>
-
-										<td>${row[4]}</td>
-
-										<td><span style="color: #F54927; font-weight: 500;">
-												${row[6]} </span></td>
-
-										<td><i class="fa fa-user"></i> ${row[9]}</td>
+										<td><input type="text" class="form-control"
+											placeholder="Case No" ng-model="search.fd_case_no"></td>
+										<td><input type="text" class="form-control"
+											placeholder="Case Year" ng-model="search.fd_case_year">
+										</td>
+										<td>
+											<button id="search" type="submit"
+												class="btn btn-primary btn-sm" ng-click="searchCaseStatus()">Search</button>
+										</td>
 									</tr>
-								</c:forEach>
 
-								<c:if test="${empty decreeData}">
-									<tr>
-										<td colspan="6" style="text-align: center;">No Records
-											Found</td>
-									</tr>
-								</c:if>
-							</tbody>
-						</table>
+								</thead>
+							</table>
+							<div ng-if="showStatus" class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Stage</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="s in decreeCaseStatus">
+                <td>{{s.stageName}}</td>
+                <td>{{s.stageDate | date:'dd-MM-yyyy HH:mm'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 
 					</div>
 				</div>
+
 				<!-- end panel -->
+
+				<!-- end col-12 -->
 			</div>
-			<!-- end col-12 -->
 		</div>
-		<!-- ===================================== 	JAVA FULLSTACK DEVELOPER VIJAY CHAURASIYA ================================== -->
-
 	</div>
-</div>
 
-</div>
-
+	<!-- end row -->
 </body>
-<%
-//if(role.equals("Advocate") || role.equals("InPerson")){
-%>
+
+<!-- ================== END PAGE LEVEL JS ================== -->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/angularJs/ng-file-upload.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/angularJs/ngMask.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/scripts/controllers/notice/NoticeController.js?v=2"></script>
-
+	src="${pageContext.request.contextPath}/js/scripts/controllers/CaseFileController.js?v=13"></script>
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/bootstrap/angular-datepicker.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/bootstrap/ui-bootstrap-tpls.0.11.2.js"></script>
 
-
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/digiSign/signer.js"></script>
-
-
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/digiSign/conf.js"></script>
-
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+	src="${pageContext.request.contextPath}/assets/js/apps.min.js"></script>
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/scripts/controllers/editor.js"></script>
 
 <script>
-	$(document).ready(function() {
+        $(document).ready(function() {
+            $("#txtEditor").Editor();
+            $("#txtEditor1").Editor();
+            App.init();
 
-		$('#decreeTable').DataTable({
-			paging : true,
-			searching : true,
-			ordering : true,
-			pageLength : 10,
-			lengthMenu : [ 5, 10, 25, 50 ],
-			responsive : true,
-			language : {
-				search : "",
-				searchPlaceholder : "🔍 Search cases...",
-				lengthMenu : "Show _MENU_ entries",
-				zeroRecords : "No matching records found"
-			}
-		});
+        });
+    </script>
 
-	});
-</script>
+<!-- <link href="editor.css" type="text/css" rel="stylesheet"/> -->
 
-
-
-
-<script>
-	$(document).ready(function() {
-		App.init();
-
-	});
-</script>
 </html>

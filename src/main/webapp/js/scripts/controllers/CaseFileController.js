@@ -754,6 +754,72 @@ $scope.response=[];
 			});
 
 	}
+	
+	
+	
+	
+	$scope.searchCaseStatus = function() {
+
+	    $scope.showLoader = true;
+	    $scope.showStatus = false;
+	    $scope.caseFileData = [];
+	    $scope.stageHistory = [];
+
+	    $http.post(urlBase + 'casefile/getCaseFileList', $scope.search)
+	        .success(function(data) {
+
+	            if (data.response === "TRUE") {
+
+	                $scope.caseFileData = data.modelList;
+
+	                if ($scope.caseFileData && $scope.caseFileData.length > 0) {
+
+	                    //  get fdId dynamically from result
+	                    var fdId = $scope.caseFileData[0].df_fd_mid || $scope.caseFileData[0].fd_id;
+
+	                    console.log("Case File ID:", fdId);
+
+	                    //  correct URL + params
+	                    $http.get(urlBase + 'casefile/getDecreeCaseStatus', {
+	                        params: { fdId: fdId }
+	                    }).then(function(response) {
+
+	                        $scope.decreeCaseStatus = response.data;
+	                        $scope.showStatus = true;
+	                        $scope.showLoader = false;
+
+	                    }, function(error) {
+	                        console.log("Error fetching stage history");
+	                        $scope.showLoader = false;
+	                    });
+
+	                } else {
+	                    $scope.showLoader = false;
+	                }
+	            } else {
+	                $scope.showLoader = false;
+	            }
+
+	        })
+	        .error(function() {
+	            console.log("Error in getting case file list");
+	            $scope.showLoader = false;
+	        });
+	};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//  =======================================update by dev 2025 snd sms ===========================================
 
 	$scope.searchCaseFileDecree = function() {

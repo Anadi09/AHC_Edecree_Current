@@ -191,8 +191,8 @@
 										</div>
 										<br />
 										<div align="left">
-											<h5>{{caseDetailsCIS.caseType}} no.{{caseDet[1]}} of
-												{{caseDet[2]}} instituted on the {{da}} day of {{mo}} ,
+											<h5>{{caseDetailsCIS.caseType}} no.{{caseDet[1]}} of 
+												{{caseDet[2]}} instituted on the {{da}} day of {{mo}} , 
 												{{ye}} from the decree | order of the</h5>
 										</div>
 										<div align="justify">
@@ -214,7 +214,7 @@
 
 											<br /> <br /> <br />
 											<h5>
-												The valuation of the appeal for purposes of
+												The valuation of the appeal for purposes of 
 												<span1> jurisdiction</span1>
 												|
 												<span1> Court-fees is, Rs.</span1>
@@ -240,7 +240,7 @@
 
 											<h5>
 												{{jgName.length >0 ? jgName[1] : null}} <span
-													ng-show="jgName.length==null">the {{jgName[1]}}</span>
+													ng-show="jgName.length==null">{{jgName[1]}}</span>
 											</h5>
 											<h5 style="text-align:right">Judges of this Court</h5>
 

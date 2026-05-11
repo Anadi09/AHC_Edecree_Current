@@ -14,15 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eDecree.model.ApplicationNotice;
 import com.eDecree.model.CaseNotice;
-import com.eDecree.model.CourtMaster;
+import com.eDecree.model.DecreeCaseStatusDTO;
 import com.eDecree.model.DecreeExamDTO;
 import com.eDecree.model.DecreeFileUploaded;
 import com.eDecree.model.DecreeForm;
 import com.eDecree.model.DecreeStage;
 import com.eDecree.model.SubDocument;
 import com.eDecree.model.User;
-import com.eDecree.model.UserRole;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 @Service
 public class NoticeService {
@@ -270,7 +268,6 @@ public class NoticeService {
 	             .setParameter("id", dfFdMid)
 	             .getSingleResult();
 	}
-	
 	
 	
 	

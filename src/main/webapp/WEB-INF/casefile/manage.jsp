@@ -180,7 +180,7 @@ label {
 										</td>
 										<td>
 											<button id="search" type="submit"
-												class="btn btn-primary btn-sm" ng-click="searchCaseFiles()">Search</button>
+												class="btn btn-primary btn-sm" ng-click="searchCasseStatus()">Search</button>
 										</td>
 									</tr>
 
@@ -520,7 +520,7 @@ label {
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/angularJs/ngMask.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/scripts/controllers/CaseFileController.js?v=10"></script>
+	src="${pageContext.request.contextPath}/js/scripts/controllers/CaseFileController.js?v=14"></script>
 
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/bootstrap/angular-datepicker.js"></script>

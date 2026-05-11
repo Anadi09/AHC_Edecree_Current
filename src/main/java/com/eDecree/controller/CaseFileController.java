@@ -11,16 +11,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -29,7 +24,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,7 +71,7 @@ import com.eDecree.model.CauseList;
 import com.eDecree.model.CauseListHistory;
 import com.eDecree.model.CauseListType;
 import com.eDecree.model.CourtMaster;
-import com.eDecree.model.DecreeSmsLog;
+import com.eDecree.model.DecreeCaseStatusDTO;
 import com.eDecree.model.DownloadFile;
 import com.eDecree.model.DownloadModel;
 import com.eDecree.model.DownloadReport;
@@ -7244,6 +7238,18 @@ else {
 		  return returnview;
 		  
 		  }
+		  
+		  
+		  @RequestMapping(value = "/getDecreeCaseStatus", method = RequestMethod.GET)
+		  @ResponseBody
+		  public List<DecreeCaseStatusDTO> getStageHistoryByCaseId(
+		          @RequestParam("fdId") Long fdId) {
+
+		      System.out.println("fdId = " + fdId);
+
+		      return caseFileDetailService.getDecreeCaseStatus(fdId);
+		  }
+		  
 		  
 		  
 		  

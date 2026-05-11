@@ -1,11 +1,10 @@
 package com.eDecree.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -17,6 +16,7 @@ import com.eDecree.model.ApplicationWithPetition;
 import com.eDecree.model.CaseFileDetail;
 import com.eDecree.model.CaseLkoToAldHistory;
 import com.eDecree.model.CauseListHistory;
+import com.eDecree.model.DecreeCaseStatusDTO;
 import com.eDecree.model.ImpugnedOrder;
 import com.eDecree.model.MetaData;
 import com.eDecree.model.Petitioner;
@@ -652,7 +652,31 @@ public class CaseFileDetailService {
 		return rd;
 	}
 
+	@Transactional("transactionManager")
+	public List<DecreeCaseStatusDTO> getDecreeCaseStatus(Long dfFdMid) {
 
+	    String sql = "SELECT df.df_fd_mid, ds.ds_stage_lid, ds.ds_cr_date " +
+	                 "FROM decree_form df " +
+	                 "JOIN decree_stage ds ON df.df_id = ds.ds_df_mid " +
+	                 "WHERE df.df_fd_mid = :id " +
+	                 "ORDER BY ds.ds_cr_date";
+
+	    List<Object[]> result = em.createNativeQuery(sql)
+	                              .setParameter("id", dfFdMid)
+	                              .getResultList();
+
+	    List<DecreeCaseStatusDTO> list = new ArrayList<>();
+
+	    for (Object[] row : result) {
+	        list.add(new DecreeCaseStatusDTO(
+	            ((Number) row[0]).longValue(),
+	            row[1] != null ? row[1].toString() : null,
+	            (Date) row[2]
+	        ));
+	    }
+
+	    return list;
+	}
 	
 
 		

@@ -789,7 +789,11 @@ public class NoticeController {
 			
 		//	if(officeRpt.getDf_exam_by()!=null || officeRpt.getDf_exam3_by()!=null) { 
 			 
-			 Paragraph p4 = new Paragraph("Decree Writer :"+examBy.getUm_fullname(),f);					
+			 Paragraph p4 = new Paragraph(
+					    "Decree Writer : " +
+					    (examBy != null && examBy.getUm_fullname() != null
+					        ? examBy.getUm_fullname()
+					        : ""),f);				
 			/* p4.add(new Chunk(glue));
 			 p4.add("Decree Writer :" +examBy3.getUm_fullname());	*/
 			/* p4.add("Decree Writer :" +examBy.getUm_fullname());*/
@@ -1160,10 +1164,11 @@ public class NoticeController {
 	
 	
 	
+//	======================== ============================== Vijay chaurasiya   ============================
+	// =============== Decree Case History =================================================
 	
-	
-	@RequestMapping(value = "/getDecreeCaseStatus", method = RequestMethod.GET)
-	public String getDecreeCaseStatusData1(HttpServletRequest request, Model model) {
+	@RequestMapping(value = "/getDecreeCaseHisotry", method = RequestMethod.GET)
+	public String getDecreeCaseStatusHistory(HttpServletRequest request, Model model) {
 
 	    List<Object[]> data = noticeService.getDecreeCaseStatus();
 	    System.out.println("DATA SIZE: " + (data != null ? data.size() : "NULL"));
@@ -1171,8 +1176,35 @@ public class NoticeController {
 	    // send data to JSP
 	    model.addAttribute("decreeData", data);
 
+	    return "notice/decreeCaseHistory";
+	}
+	
+	
+	// =======================Decree Case Status =================================================
+	
+	@RequestMapping(value = "/getDecreeCaseStatus", method = RequestMethod.GET)
+	public String getDecreeCaseStatus(HttpServletRequest request, Model model) {
+
+		/*
+		 * List<Object[]> data = noticeService.getDecreeCaseStatus();
+		 * System.out.println("DATA SIZE: " + (data != null ? data.size() : "NULL"));
+		 * 
+		 * // send data to JSP model.addAttribute("decreeData", data);
+		 */
+
 	    return "notice/decreeCaseStatus";
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 //	<!-- ===================================== 	JAVA FULLSTACK DEVELOPER VIJAY CHAURASIYA ================================== -->
 	
@@ -1582,16 +1614,17 @@ public class NoticeController {
 							readernewFile.close();
 							 if(df.getDf_stage_lid()==4008L) {
 								 df.setDf_final_file(filename1);
-						//		 df.setDf_locked(true);
+								 df.setDf_locked(true);
 								 
 								 SubDocument subDocument = new SubDocument();
 									subDocument.setSd_cr_by(user.getUm_id());
 									subDocument.setSd_cr_date(new Date());
 									subDocument.setSd_fd_mid(df.getDf_fd_mid());
-									subDocument.setSd_if_mid(44L);			//localdatabase index no 
-								//	subDocument.setSd_if_mid(54L);			//live database index no change
+								//	subDocument.setSd_if_mid(44L);			//localdatabase index no 
+									subDocument.setSd_if_mid(54L);			//live database index no change
 									subDocument.setSd_version(1);
 									subDocument.setSd_document_name(filename1);
+									subDocument.setSd_no_of_pages(newPageCount);
 								//	subDocument.setSd_document_id(at_id);
 									subDocument.setSd_submitted_date(new Date());
 									subDocument.setSd_rec_status(1);
